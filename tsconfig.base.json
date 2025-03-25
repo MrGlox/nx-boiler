@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": false,
+    "baseUrl": ".",
+    "paths": {
+      "---- CORE LIBS ----": ["--------------------------------"],
+      "@repo/database": ["libs/database/src/index.ts"],
+      "---- SHARED LIBS ----": ["--------------------------------"],
+      "@repo/dto": ["libs/shared/dto/src/index.ts"],
+      "@repo/shared/mailer": ["libs/shared/mailer/src/index.ts"],
+      "@repo/shared/utils": ["libs/shared/utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

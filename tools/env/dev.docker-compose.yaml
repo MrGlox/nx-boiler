@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+  redis_dev:
+    image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: [ "redis-server" ]
+    # --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - ./cache:/data
+      # - /dev/volumes/nestjs-remix/dev/sessions/:/data
+
+volumes:
+  db-data:
