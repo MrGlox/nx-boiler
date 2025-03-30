@@ -3,17 +3,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
 import { DatabaseService } from '@repo/database';
-import { TokenModule } from '../token/token.module';
 
 import { EventController } from './event.controller';
 
 @Module({
-  imports: [
-    ConfigModule,
-    HttpModule,
-    // Custom modules
-    TokenModule,
-  ],
+  imports: [ConfigModule, HttpModule],
   providers: [DatabaseService],
   controllers: [EventController],
   exports: [],

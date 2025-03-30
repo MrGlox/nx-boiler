@@ -7,16 +7,20 @@
   "// targets": "to see all targets run: nx show project web --web",
   "targets": {
     "build": {
-      "executor": "@nx/vite:build",
+      "command": "vite build",
       "options": {
-        "config": "apps/web/vite.config.ts",
+        "root": "apps/web",
+        "sourceRoot": "apps/web/src",
+        "config": "apps/web/app.config.ts",
         "outputPath": "dist/apps/web"
       }
     },
     "serve": {
-      "executor": "@nx/vite:dev-server",
-      "options": {
-        "config": "apps/web/vite.config.ts",
+      "command": "vinxi dev --host --config apps/web/app.config.ts",
+      "// options": {
+        "root": "apps/web",
+        "sourceRoot": "apps/web/src",
+        "config": "apps/web/app.config.ts",
         "outputPath": "dist/apps/web"
       }
     }

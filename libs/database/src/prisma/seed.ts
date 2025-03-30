@@ -11,7 +11,6 @@ async function main() {
   await prisma.subscription.deleteMany({});
   await prisma.price.deleteMany({});
   await prisma.product.deleteMany({});
-  await prisma.token.deleteMany({});
   await prisma.session.deleteMany({});
   await prisma.profile.deleteMany({});
   await prisma.address.deleteMany({});
@@ -26,7 +25,7 @@ async function main() {
       password: hashedPassword,
       role: 'ADMIN',
       active: true,
-      isEmailVerified: true,
+      emailVerified: true,
       profile: {
         create: {
           firstName: 'Admin',
@@ -44,7 +43,7 @@ async function main() {
       password: hashedPassword,
       role: 'USER',
       active: true,
-      isEmailVerified: true,
+      emailVerified: true,
       profile: {
         create: {
           firstName: 'Regular',
