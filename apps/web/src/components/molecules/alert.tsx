@@ -11,8 +11,8 @@ import {
   Alert as AlertComponent,
   AlertDescription,
   AlertTitle,
-} from '@/components/ui/alert';
-import { cn } from '@/lib/utils';
+} from '~/components/ui/alert';
+import { cn } from '~/lib/utils';
 
 export enum AlertVariant {
   default = 'default',

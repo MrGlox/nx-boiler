@@ -6,8 +6,8 @@ import * as React from 'react';
 // import { FormApi } from '@tanstack/react-form';
 import { useTranslation } from 'react-i18next';
 
-import { Label } from '@/components/ui/label';
-import { cn, generateAlert, generateFlash } from '@/lib/utils';
+import { Label } from '~/components/ui/label';
+import { cn, generateAlert, generateFlash } from '~/lib/utils';
 
 // Define proper types instead of using 'any'
 interface FormProps extends React.FormHTMLAttributes<HTMLFormElement> {

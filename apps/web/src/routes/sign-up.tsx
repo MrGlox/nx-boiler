@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
 
-import { Google } from '@/assets/logos';
-import { Link } from '@/components/atoms/link';
-import { Badge } from '@/components/ui/badge';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Google } from '~/assets/logos';
+import { Link } from '~/components/atoms/link';
+import { Badge } from '~/components/ui/badge';
+import { Button, buttonVariants } from '~/components/ui/button';
+import { cn } from '~/lib/utils';
 import { useForm } from '@tanstack/react-form';
 
 import {
@@ -15,10 +15,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from '~/components/ui/form';
+import { Input } from '~/components/ui/input';
 import { createFileRoute } from '@tanstack/react-router';
-import { NotFound } from '@/components/NotFound';
+import { NotFound } from '~/components/NotFound';
 
 const schema = z.object({
   email: z.string().email(),

@@ -7,5 +7,10 @@
   },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
-  }
+  },
+  "i18n-ally.localesPaths": [
+    "apps/web/src/locales",
+    "apps/api/src/assets/locales",
+    "apps/api/src/core/locales"
+  ]
 }

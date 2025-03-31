@@ -17,8 +17,8 @@
     "baseUrl": ".",
     "paths": {
       "---- CORE LIBS ----": ["--------------------------------"],
-      "@repo/database": ["libs/database/src/index.ts"],
       "---- SHARED LIBS ----": ["--------------------------------"],
+      "@repo/database": ["libs/database/src/index.ts"],
       "@repo/dto": ["libs/shared/dto/src/index.ts"],
       "@repo/shared/mailer": ["libs/shared/mailer/src/index.ts"],
       "@repo/shared/utils": ["libs/shared/utils/src/index.ts"]

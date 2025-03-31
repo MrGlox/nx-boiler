@@ -4,6 +4,7 @@ import { defineConfig } from '@tanstack/react-start/config';
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import tsConfigPaths from 'vite-tsconfig-paths';
 import tailwindcss from '@tailwindcss/vite';
+import path from 'node:path';
 
 export default defineConfig({
   tsr: {
@@ -11,20 +12,27 @@ export default defineConfig({
   },
   vite: {
     cacheDir: '../../node_modules/.vite/apps/web',
+    server: {
+      port: 4200,
+      host: 'localhost',
+    },
+    preview: {
+      port: 4300,
+      host: 'localhost',
+    },
     plugins: [
-      TanStackRouterVite({
-        target: 'react',
-        generatedRouteTree: 'apps/web/src/routeTree.gen.ts',
-        routesDirectory: 'apps/web/src/routes',
-      }),
+      TanStackRouterVite(),
       nxViteTsPaths(),
-      tailwindcss(),
       nxCopyAssetsPlugin(['*.md']),
-      tsConfigPaths({
-        root: 'apps/web',
-        projects: ['./tsconfig.json'],
-      }),
+      tsConfigPaths(),
     ],
+    resolve: {
+      alias: {
+        '~': path.resolve('apps/web/src'),
+        '@': path.resolve('apps/web/src'),
+        '@/components': path.resolve('apps/web/src/components'),
+      },
+    },
     build: {
       outDir: '../../dist/apps/web',
       emptyOutDir: true,

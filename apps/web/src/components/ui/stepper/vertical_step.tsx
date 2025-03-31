@@ -1,5 +1,5 @@
-import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
-import { cn } from '@/lib/utils';
+import { Collapsible, CollapsibleContent } from '~/components/ui/collapsible';
+import { cn } from '~/lib/utils';
 import { cva } from 'class-variance-authority';
 import * as React from 'react';
 import { StepButtonContainer } from './step_button_container';

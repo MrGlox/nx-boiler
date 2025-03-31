@@ -4,7 +4,7 @@
 // import { getCookie, setCookie, getEvent } from 'vinxi/http';
 import Backend from 'i18next-fs-backend';
 
-import * as i18n from '@/config/i18n';
+import * as i18n from '~/config/i18n';
 
 // export const i18nCookie = {
 //   name: '_i18n',

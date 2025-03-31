@@ -1,4 +1,4 @@
-import { Alert } from '@/components/molecules';
+import { Alert } from '~/components/molecules';
 
 export type ErrorsData = {
   errors: string;

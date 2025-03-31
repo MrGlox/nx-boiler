@@ -1,8 +1,8 @@
 import {
   Button as ShadcnButton,
   type ButtonProps as ShadcnButtonProps,
-} from '@/components/ui/button';
-import { Loader } from '@/components/ui/loader';
+} from '~/components/ui/button';
+import { Loader } from '~/components/ui/loader';
 
 interface ButtonProps extends ShadcnButtonProps {
   isLoading?: boolean;

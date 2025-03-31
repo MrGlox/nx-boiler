@@ -1,14 +1,14 @@
-import alertsEN from '@/locales/en/alerts.json';
-import authEN from '@/locales/en/auth.json';
-import commonEN from '@/locales/en/common.json';
-import dashboardEN from '@/locales/en/dashboard.json';
-import validationsEN from '@/locales/en/validations.json';
+import alertsEN from '~/locales/en/alerts.json';
+import authEN from '~/locales/en/auth.json';
+import commonEN from '~/locales/en/common.json';
+import dashboardEN from '~/locales/en/dashboard.json';
+import validationsEN from '~/locales/en/validations.json';
 
-import alertsFR from '@/locales/fr/alerts.json';
-import authFR from '@/locales/fr/auth.json';
-import commonFR from '@/locales/fr/common.json';
-import dashboardFR from '@/locales/fr/dashboard.json';
-import validationsFR from '@/locales/fr/validations.json';
+import alertsFR from '~/locales/fr/alerts.json';
+import authFR from '~/locales/fr/auth.json';
+import commonFR from '~/locales/fr/common.json';
+import dashboardFR from '~/locales/fr/dashboard.json';
+import validationsFR from '~/locales/fr/validations.json';
 
 // This is the list of languages your application supports, the last one is your
 // fallback language

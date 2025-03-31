@@ -1,6 +1,6 @@
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '~/components/ui/button';
 import {
   Command,
   CommandEmpty,
@@ -8,14 +8,14 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
+} from '~/components/ui/command';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
+} from '~/components/ui/popover';
+import { ScrollArea, ScrollBar } from '~/components/ui/scroll-area';
+import { cn } from '~/lib/utils';
 
 import { FieldError } from 'react-hook-form';
 // Import JSON data directly

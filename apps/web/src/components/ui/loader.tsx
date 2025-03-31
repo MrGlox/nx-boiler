@@ -1,5 +1,5 @@
 import { AllHTMLAttributes, FC } from 'react';
-import { cn } from '@/lib/utils';
+import { cn } from '~/lib/utils';
 
 interface LoaderProps extends AllHTMLAttributes<HTMLDivElement> {}
 
