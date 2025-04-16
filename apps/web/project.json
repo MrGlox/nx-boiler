@@ -16,13 +16,7 @@
       }
     },
     "serve": {
-      "command": "vinxi dev --host --config apps/web/app.config.ts",
-      "// options": {
-        "root": "apps/web",
-        "sourceRoot": "apps/web/src",
-        "config": "apps/web/app.config.ts",
-        "outputPath": "dist/apps/web"
-      }
+      "command": "vinxi dev --host --config apps/web/app.config.ts --root apps/web"
     }
   }
 }

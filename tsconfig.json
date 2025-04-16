@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@repo/components": ["libs/ui/src/components/index.gen.ts"],
+      "@repo/database": ["libs/database/src/index.ts"],
+      "@repo/dto": ["libs/shared/dto/src/index.ts"],
+      "@repo/shared/mailer": ["libs/shared/mailer/src/index.ts"],
+      "@repo/styles/*": ["libs/ui/src/styles/*"],
+      "@repo/ui/*": ["libs/ui/*"],
+      "@repo/utils": ["libs/utils/src/index.ts"]
+    }
+  }
+}

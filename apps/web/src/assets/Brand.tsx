@@ -1,4 +1,4 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from 'react';
 
 const SvgBrand = (props: SVGProps<SVGSVGElement>) => (
   <svg
@@ -15,7 +15,7 @@ const SvgBrand = (props: SVGProps<SVGSVGElement>) => (
         x="71"
         y="73"
         maskUnits="userSpaceOnUse"
-        style={{ maskType: "alpha" }}
+        style={{ maskType: 'alpha' }}
       >
         <circle
           cx="46.342"

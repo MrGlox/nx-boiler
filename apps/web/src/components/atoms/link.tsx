@@ -3,17 +3,14 @@ import {
   type LinkProps as RouterLinkProps,
 } from '@tanstack/react-router';
 
-import { cn } from '~/lib/utils';
+import { cn } from '@/lib/utils';
 
 interface LinkProps extends RouterLinkProps {
   reversed?: boolean;
+  className?: string;
 }
 
-const Link = ({
-  className,
-  reversed = false,
-  ...props
-}: LinkProps & { className?: string }) => {
+const Link = ({ className, reversed = false, ...props }: LinkProps) => {
   return (
     <RouterLink
       {...props}

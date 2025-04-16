@@ -1,17 +1,27 @@
 {
-  "linter": {
-    "rules": {
-      "complexity": {
-        "useLiteralKeys": "off"
-      },
-      "style": {
-        "useImportType": "off"
-      }
-    }
-  },
-  "javascript": {
-    "parser": {
-      "unsafeParameterDecoratorsEnabled": true
-    }
-  }
+	"linter": {
+		"rules": {
+			"complexity": {
+				"useLiteralKeys": "off",
+				"noStaticOnlyClass": "off"
+			},
+			"correctness": {
+				"noChildrenProp": "off"
+			},
+			"style": {
+				"useImportType": "off"
+			},
+			"suspicious": {
+				"noExplicitAny": "off"
+			}
+		}
+	},
+	"javascript": {
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		},
+		"formatter": {
+			"quoteStyle": "double"
+		}
+	}
 }

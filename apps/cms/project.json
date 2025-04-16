@@ -1,0 +1,19 @@
+{
+  "name": "cms",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cms",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project cms --web",
+  "targets": {
+    "build": {
+      "command": "vite build",
+      "options": {
+        "root": "apps/cms",
+        "sourceRoot": "apps/cms/src",
+        "config": "apps/cms/app.config.ts",
+        "outputPath": "dist/apps/cms"
+      }
+    }
+  }
+}

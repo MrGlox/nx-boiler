@@ -4,15 +4,14 @@ import {
   ExclamationTriangleIcon,
   InfoCircledIcon,
 } from '@radix-ui/react-icons';
-import { HTMLAttributes, forwardRef } from 'react';
-import { useTranslation } from 'react-i18next';
+import { type HTMLAttributes, forwardRef } from 'react';
 
 import {
   Alert as AlertComponent,
   AlertDescription,
   AlertTitle,
-} from '~/components/ui/alert';
-import { cn } from '~/lib/utils';
+} from '@repo/ui';
+import { cn } from '@repo/utils';
 
 export enum AlertVariant {
   default = 'default',
@@ -38,8 +37,6 @@ const Alert = forwardRef<
     { className, variant = 'default', children, title = false, ...props },
     ref,
   ) => {
-    const { t } = useTranslation();
-
     return (
       <AlertComponent
         {...{ ...props, ref, variant }}
@@ -48,7 +45,7 @@ const Alert = forwardRef<
         {IconVariants[variant]}
         {typeof title === 'boolean' && title ? (
           <AlertTitle>
-            {t(
+            {/* {t(
               variant as
                 | 'default'
                 | 'destructive'
@@ -56,7 +53,7 @@ const Alert = forwardRef<
                 | 'warning'
                 | 'info',
               typeof title === 'string' ? title : '',
-            )}
+            )} */}
           </AlertTitle>
         ) : (
           title && <AlertTitle>{title}</AlertTitle>

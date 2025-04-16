@@ -1,19 +1,26 @@
-import { All, Controller, Req, Res } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import type { Request, Response } from 'express';
+import { Controller, Get, UseGuards, Request } from "@nestjs/common";
+import { ApiTags, ApiOperation, ApiBearerAuth } from "@nestjs/swagger";
+import { BetterGuard } from "./guards/auth.guard";
+import { BetterAuthService } from "./better-auth.service";
 
-import type { AuthService } from './auth.service';
-
-@ApiTags('auth')
-@Controller()
+@ApiTags("Auth")
+@Controller("users")
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: BetterAuthService) {}
 
-  // @All('api/auth/*')
-  // @ApiOperation({
-  //   summary: 'Auth handler',
-  // })
-  // async auth(@Req() req: Request, @Res() res: Response) {
-  //   return this.authService.handler(req, res);
-  // }
+  @Get("me")
+  @UseGuards(BetterGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: "Get current user profile" })
+  async getProfile(@Request() req) {
+    const auth = this.authService.getAuth();
+    const session = await auth.api.getSession({
+      headers: req.headers,
+    });
+
+    return {
+      user: session?.user || null,
+      message: "Protected route",
+    };
+  }
 }

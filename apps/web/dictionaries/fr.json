@@ -1,0 +1,215 @@
+{
+	"$schema": "https://inlang.com/schema/inlang-message-format",
+	"example_message": "Bonjour {username} test",
+	"server_message": "Message du serveur {emoji}",
+	"auth": {
+		"signin": {
+			"title": "Connexion",
+			"description": "Connectez-vous pour accéder à toutes les fonctionnalités de votre gestionnaire de commentaires préféré.",
+			"social": "Connectez-vous avec votre compte Google pour fournir l'accès aux commentaires, vidéos et playlists de votre chaîne.",
+			"action": "Se connecter avec un e-mail"
+		},
+		"forgot": {
+			"title": "Mot de passe oublié",
+			"link": "Mot de passe oublié ?",
+			"description": "Entrez votre adresse e-mail pour commencer le processus de récupération de compte",
+			"confirm": "Confirmer l'e-mail"
+		},
+		"signup": {
+			"title": "Inscription",
+			"description": "Connectez-vous avec votre compte Google pour fournir l'accès aux commentaires, vidéos et playlists de votre chaîne.",
+			"social": "Connectez-vous avec votre compte Google pour fournir l'accès aux commentaires, vidéos et playlists de votre chaîne.",
+			"action": "S'inscrire avec un e-mail"
+		},
+		"forgot_password": {
+			"title": "Mot de passe oublié",
+			"link": "Mot de passe oublié ?",
+			"description": "Connectez-vous avec votre compte Google pour fournir l'accès aux commentaires, vidéos et playlists de votre chaîne.",
+			"update": "Mettre à jour le mot de passe",
+			"social": "Connectez-vous avec votre compte Google pour fournir l'accès aux commentaires, vidéos et playlists de votre chaîne."
+		},
+		"email": {
+			"title": "Vérification de l'e-mail en cours",
+			"description": "Nous vous avons envoyé un e-mail pour vérifier votre adresse. Veuillez vérifier votre boîte de réception et cliquer sur le lien fourni pour continuer."
+		},
+
+		"register": "S'inscrire avec un e-mail",
+		"or_continue": "Ou continuer avec",
+		"alerts": {
+			"access_denied": "Vous avez annulé le processus de connexion",
+			"stateMisMatch": "Nous ne pouvons pas vérifier la demande. Veuillez réessayer."
+		},
+		"fields": {
+			"email": "E-mail",
+			"email_placeholder": "nom@exemple.com",
+			"password": "Mot de passe",
+			"password_confirm": "Confirmer le mot de passe",
+			"password_new": "Nouveau mot de passe",
+			"name": "Nom",
+			"username": "Nom d'utilisateur",
+			"phone": "Téléphone"
+		},
+		"agree": "En cliquant sur continuer, vous acceptez nos",
+		"terms": "Conditions d'utilisation",
+		"and": "et",
+		"privacy": "Politique de confidentialité"
+	},
+	"common": {
+		"website": "Boilerplate",
+		"title": "Page d'accueil | {website}",
+		"description": "Boilerplate est un système de commentaires simple et facile à utiliser pour votre chaîne YouTube.",
+		"navigate": "Naviguer",
+		"login": "Se connecter",
+		"logout": "Se déconnecter",
+		"search": "Rechercher",
+		"add_to_cart": "Ajouter au panier",
+		"remove_from_cart": "Retirer du panier",
+		"checkout": "Passer à la caisse",
+		"update_profile": "Mettre à jour le profil",
+		"change_password": "Changer le mot de passe",
+		"subscribe": "S'abonner",
+		"unsubscribe": "Se désabonner",
+		"download": "Télécharger",
+		"upload": "Téléverser",
+		"contact_support": "Contacter le support",
+		"leave_feedback": "Retour d'information",
+		"view_details": "Voir les détails",
+		"place_order": "Passer la commande",
+		"cancel_order": "Annuler la commande",
+		"submit": "Envoyer",
+		"pay": "Payer",
+		"pick_date": "Choisir une date",
+		"refresh": "Rafraîchir",
+		"save": "Enregistrer",
+		"edit": "Modifier",
+		"delete": "Supprimer",
+		"register": "S'inscrire",
+		"confirm": "Confirmer",
+		"decline": "Refuser",
+		"accept": "Accepter",
+		"view_notifications": "Voir les notifications",
+		"enable_notifications": "Activer les notifications",
+		"disable_notifications": "Désactiver les notifications",
+		"share": "Partager",
+		"rate": "Évaluer",
+		"comment": "Commenter",
+		"reply": "Répondre",
+		"recommended": "Recommandé",
+		"prev": "Précédent",
+		"next": "Suivant",
+		"back": "Retour",
+		"skip": "Passer",
+		"finish": "Terminer",
+		"close": "Fermer",
+		"error": "Erreur",
+		"default": "Défaut",
+		"destructive": "Erreur",
+		"info": "Information",
+		"success": "Succès",
+		"warning": "Avertissement",
+		"cookie": {
+			"title": "Nous accordons de l'importance à votre vie privée",
+			"description": "Nous utilisons des cookies pour améliorer votre expérience de navigation, diffuser des publicités ou du contenu personnalisé et analyser notre trafic. En cliquant sur \"Tout accepter\", vous consentez à l'utilisation de nos cookies.",
+			"link": "Politique de cookies",
+			"customize": "Personnaliser",
+			"reject": "Tout refuser",
+			"accept": "Tout accepter"
+		}
+	},
+	"dashboard": {
+		"title": "Tableau de bord",
+		"description": "Tableau de bord qui liste toutes vos activités",
+		"onboarding": {
+			"title": "Onboarding",
+			"description": "Processus d'intégration",
+			"step1": {
+				"title": "Étape 1",
+				"description": "Lier un compte Google",
+				"subtitle": "Liez votre compte Google pour récupérer votre chaîne YouTube",
+				"heading": "Bienvenue dans le processus d'intégration",
+				"intro": "Bienvenue dans le processus d'intégration"
+			},
+			"step2": {
+				"title": "Étape 2",
+				"description": "Vérification de la chaîne YouTube",
+				"subtitle": "Vérifiez les informations de votre chaîne",
+				"heading": "Bienvenue dans le processus d'intégration",
+				"intro": "Bienvenue dans le processus d'intégration"
+			},
+			"step3": {
+				"title": "Étape 3",
+				"description": "Inviter des modérateurs",
+				"subtitle": "Veuillez vérifier les informations de votre chaîne",
+				"heading": "Bienvenue dans le processus d'intégration",
+				"intro": "Bienvenue dans le processus d'intégration"
+			}
+		},
+		"options": {
+			"done": "Déjà fait !",
+			"optional": "(facultatif)"
+		},
+		"fields": {
+			"password": "Mot de passe",
+			"password_confirm": "Confirmez le mot de passe",
+			"pseudo": "Pseudo",
+			"language": "Langue"
+		},
+		"account": {
+			"title": "Compte",
+			"title_meta": "Mon compte | {website}",
+			"description": "Gérez les paramètres de votre compte et définissez vos préférences e-mail."
+		},
+		"appearance": {
+			"title": "Apparence",
+			"title_meta": "Apparence | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"billings": {
+			"title": "Factures",
+			"title_meta": "Factures | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"display": {
+			"title": "Affichage",
+			"title_meta": "Affichage | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"profile": {
+			"title": "Profil",
+			"title_meta": "Profil | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"settings": {
+			"title": "Paramètres",
+			"title_meta": "Paramètres | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"subscription": {
+			"title": "Abonnement",
+			"title_meta": "Abonnement | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"my_account": {
+			"title": "Mon compte",
+			"title_meta": "Mon compte | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"notifications": {
+			"title": "Notifications",
+			"title_meta": "Notifications | {website}",
+			"description": "Sélectionnez votre plan d'abonnement ou gérez vos informations de facturation."
+		},
+		"settings_desc": "Gérez les paramètres de votre compte et définissez vos préférences e-mail.",
+		"team": "Équipe",
+		"invite_users": "Inviter des utilisateurs",
+		"invite": {
+			"email": "E-mail",
+			"message": "Message",
+			"more": "Plus..."
+		},
+		"select_offer": "Sélectionnez une offre",
+		"annual": "Annuel",
+		"support": "Support",
+		"payment_methods": "Moyen de paiements"
+	}
+}

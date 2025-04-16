@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "inlang.vs-code-extension",
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "firsttris.vscode-jest-runner"

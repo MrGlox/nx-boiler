@@ -1,13 +1,20 @@
 /// <reference types="vinxi/types/server" />
+import { getRouterManifest } from "@tanstack/react-start/router-manifest";
 import {
   createStartHandler,
   defaultStreamHandler,
-} from '@tanstack/react-start/server';
-import { getRouterManifest } from '@tanstack/react-start/router-manifest';
+  defineEventHandler,
+} from "@tanstack/react-start/server";
 
-import { createRouter } from './router';
+import { getWebRequest } from "vinxi/http";
+import { paraglideMiddleware } from "./paraglide/server.js";
+import { createRouter } from "./router";
 
-export default createStartHandler({
-  createRouter,
-  getRouterManifest,
-})(defaultStreamHandler);
+export default defineEventHandler((event) =>
+  paraglideMiddleware(getWebRequest(event), async () =>
+    createStartHandler({
+      createRouter: () => createRouter(event.path),
+      getRouterManifest,
+    })(defaultStreamHandler)(event),
+  ),
+);

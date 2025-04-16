@@ -38,8 +38,12 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.nx/cache
-.nx/workspace-data
+/.nx
+/.verdaccio
 
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+
+# Next.js
+.next
+out

@@ -1,5 +1,6 @@
-export * from "./alerts";
-export * from "./classNames";
-export * from "./formats";
-export * from "./obj-helpers";
-export * from "./url";
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+	return twMerge(clsx(inputs));
+}

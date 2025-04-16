@@ -1,31 +1,26 @@
 /// <reference types="vinxi/types/client" />
-import { hydrateRoot } from 'react-dom/client';
-import { StartClient } from '@tanstack/react-start';
-// import i18next from 'i18next';
-// import LanguageDetector from 'i18next-browser-languagedetector';
-// import Backend from 'i18next-http-backend';
-// import { initReactI18next } from 'react-i18next';
 
-// import * as i18nConfig from './config/i18n';
-import { createRouter } from './router';
-
-// Initialize i18next for client-side
-// i18next
-//   .use(initReactI18next)
-//   .use(LanguageDetector)
-//   .use(Backend)
-//   .init({
-//     ...i18nConfig,
-//     detection: {
-//       order: ['cookie', 'localStorage', 'navigator', 'htmlTag'],
-//       lookupCookie: '_i18n',
-//       caches: ['cookie', 'localStorage'],
-//     },
-//     backend: {
-//       loadPath: '/locales/{{lng}}/{{ns}}.json',
-//     },
-//   });
+import { StartClient } from "@tanstack/react-start";
+import { hydrateRoot } from "react-dom/client";
+import {
+  getLocale,
+  overwriteGetLocale,
+  strategy,
+} from "./paraglide/runtime.js";
+import { createRouter } from "./router";
 
 const router = createRouter();
+
+/**
+ * BEGINING
+ * This is to make sure locale is not pulled from a cookie to prevent weird behaviour when the language was changed manually in the cookie or in another tab. If you don't rely on cookies for locale, you can remove this line.
+ */
+if (strategy.includes("cookie")) {
+  const inMemoryLocale = getLocale();
+  overwriteGetLocale(() => inMemoryLocale);
+}
+/**
+ * END
+ */
 
 hydrateRoot(document, <StartClient router={router} />);

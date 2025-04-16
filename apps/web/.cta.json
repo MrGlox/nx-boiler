@@ -1,0 +1,23 @@
+{
+  "framework": "react",
+  "typescript": true,
+  "projectName": "tanstack-start-test",
+  "mode": "file-router",
+  "tailwind": true,
+  "packageManager": "pnpm",
+  "toolchain": "biome",
+  "variableValues": {},
+  "git": true,
+  "version": 1,
+  "existingAddOns": [
+    "sentry",
+    "form",
+    "netlify",
+    "shadcn",
+    "start",
+    "store",
+    "tRPC",
+    "tanstack-query",
+    "tanchat"
+  ]
+}

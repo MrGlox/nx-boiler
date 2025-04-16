@@ -1,11 +1,12 @@
-import { auth } from '~/server/auth';
-import { createAPIFileRoute } from '@tanstack/react-start/api';
+import { createAPIFileRoute } from "@tanstack/react-start/api";
 
-export const APIRoute = createAPIFileRoute('/api/auth/$')({
-  GET: ({ request }) => {
+import { auth } from "@/server/auth";
+
+export const APIRoute = createAPIFileRoute("/api/auth/$")({
+  GET: ({ request }: { request: Request }) => {
     return auth.handler(request);
   },
-  POST: ({ request }) => {
+  POST: ({ request }: { request: Request }) => {
     return auth.handler(request);
   },
 });

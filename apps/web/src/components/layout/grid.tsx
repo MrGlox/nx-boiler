@@ -1,18 +1,18 @@
-import { cn } from '~/lib/utils';
+import { cn } from "~/lib/utils";
 
 interface GridProps {
   tag?:
-    | 'ul'
-    | 'li'
-    | 'ol'
-    | 'nav'
-    | 'form'
-    | 'div'
-    | 'header'
-    | 'footer'
-    | 'section'
-    | 'article'
-    | 'main';
+    | "ul"
+    | "li"
+    | "ol"
+    | "nav"
+    | "form"
+    | "div"
+    | "header"
+    | "footer"
+    | "section"
+    | "article"
+    | "main";
   children: React.ReactNode;
   className?: string;
 }
@@ -27,14 +27,14 @@ interface GridProps {
  *
  * @returns {JSX.Element}
  */
-export function Grid({ tag = 'div', children, ...rest }: GridProps) {
+export function Grid({ tag = "div", children, ...rest }: GridProps) {
   const DynamicTag = `${tag}` as keyof JSX.IntrinsicElements;
 
   return (
     <DynamicTag
       {...rest}
       className={cn(
-        'grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-x-2 w-full',
+        "grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-x-2 w-full",
         rest.className,
       )}
     >
