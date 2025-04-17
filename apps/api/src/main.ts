@@ -2,11 +2,10 @@ import { join } from "node:path";
 
 import { NestFactory } from "@nestjs/core";
 import type { NestExpressApplication } from "@nestjs/platform-express";
-import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { Logger } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 
-// import { urlencoded } from "body-parser";
+import { urlencoded, json } from "body-parser";
 import cookieParser from "cookie-parser";
 // import session from "express-session";
 import { WinstonModule } from "nest-winston";
@@ -16,7 +15,9 @@ import * as winston from "winston";
 // import Redis from "ioredis";
 
 import { AppModule } from "./app/app.module";
-import { HttpExceptionFilter } from "./core/exception.filter";
+import { auth } from "./auth/config/auth.config";
+import { setupApiDocumentation } from "./core/open-api";
+// import { HttpExceptionFilter } from "./core/exception.filter";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -43,12 +44,40 @@ async function bootstrap() {
   const globalPrefix = configService.get("API_GLOBAL_PREFIX", "api");
   const port = configService.get("API_PORT", 4200);
 
-  app.setGlobalPrefix(
-    globalPrefix,
-    //   //   {
-    //   //   exclude: ["health", "docs"],
-    //   // }
-  );
+  app.setGlobalPrefix(globalPrefix);
+
+  // Enable CORS with environment variables
+  app.enableCors({
+    origin: [
+      process.env.APP_DOMAIN || "http://localhost:3000",
+      process.env.API_DOMAIN || "http://localhost:4200",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Access-Control-Allow-Origin",
+      "X-Requested-With",
+      "Accept",
+    ],
+  });
+
+  // Set up body parsing middleware for non-auth routes
+  app.use((req, res, next) => {
+    // Skip body parsing for auth routes
+    if (req.path.startsWith(`/${globalPrefix}/auth/`)) {
+      return next();
+    }
+
+    // For all other routes, apply body parsing
+    json()(req, res, (err) => {
+      if (err) return next(err);
+      urlencoded({ extended: true })(req, res, next);
+    });
+  });
+
+  app.use(cookieParser());
 
   // // Initialize client
   // const redisUrl = process.env.REDIS_URL || "redis://localhost:6379";
@@ -60,41 +89,22 @@ async function bootstrap() {
   //   ttl: 86400 * 30,
   // });
 
-  const config = new DocumentBuilder()
-    .setTitle("API Documentation")
-    .setDescription("The API description")
-    .setVersion("0.0.1")
-    // .addBearerAuth(
-    //   {
-    //     type: "http",
-    //     scheme: "bearer",
-    //     bearerFormat: "JWT",
-    //     name: "Authorization",
-    //     description: "Enter JWT token",
-    //     in: "header",
-    //   },
-    //   "access-token",
-    // )
-    .build();
+  // Set up API documentation
+  await setupApiDocumentation(app, auth, globalPrefix, port);
 
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup("docs", app, documentFactory);
+  app.set("trust proxy", 1);
 
-  // app.set("trust proxy", 1);
-
-  // app.useStaticAssets(join(__dirname, "..", "public"), {
-  //   prefix: "/public/",
-  // });
-
-  // app.useGlobalFilters(new HttpExceptionFilter());
-
-  // app.use(cookieParser());
+  app.useStaticAssets(join(__dirname, "..", "public"), {
+    prefix: "/public/",
+  });
 
   await app.listen(port);
 
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
   );
-  // Logger.log(`🚀 Application is running on: http://localhost:${port}`);
+  Logger.log(
+    `📚 API Documentation available at: http://localhost:${port}/docs`,
+  );
 }
 bootstrap();

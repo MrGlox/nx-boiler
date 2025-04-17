@@ -1,22 +1,22 @@
 {
-  "name": "web",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/web/src",
-  "projectType": "application",
-  "tags": [],
-  "// targets": "to see all targets run: nx show project web --web",
-  "targets": {
-    "build": {
-      "command": "vite build",
-      "options": {
-        "root": "apps/web",
-        "sourceRoot": "apps/web/src",
-        "config": "apps/web/app.config.ts",
-        "outputPath": "dist/apps/web"
-      }
-    },
-    "serve": {
-      "command": "vinxi dev --host --config apps/web/app.config.ts --root apps/web"
-    }
-  }
+	"name": "web",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/web/src",
+	"projectType": "application",
+	"tags": [],
+	"// targets": "to see all targets run: nx show project web --web",
+	"targets": {
+		"build": {
+			"command": "vite build",
+			"options": {
+				"root": "apps/web",
+				"sourceRoot": "apps/web/src",
+				"config": "apps/web/app.config.ts",
+				"outputPath": "dist/apps/web"
+			}
+		},
+		"serve": {
+			"command": "vinxi dev --host --config apps/web/app.config.ts --root apps/web"
+		}
+	}
 }

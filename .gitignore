@@ -47,3 +47,6 @@ vitest.config.*.timestamp*
 # Next.js
 .next
 out
+
+# Prisma generated files
+**/generated/**

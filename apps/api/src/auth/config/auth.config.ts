@@ -1,33 +1,78 @@
-import { PrismaClient } from "@repo/database";
-import { BetterAuthOptions } from "better-auth";
+import { betterAuth } from "better-auth";
 import { bearer, openAPI } from "better-auth/plugins";
+import { prismaAdapter } from "better-auth/adapters/prisma";
 
-export const createAuthConfig = (
-  prisma: PrismaClient,
-  env: NodeJS.ProcessEnv,
-): BetterAuthOptions => {
-  return {
-    basePath: "/auth",
-    plugins: [
-      openAPI({
-        path: "/docs",
-        apiPrefix: env.API_PREFIX || "api",
-      }),
-      bearer(),
-    ],
-    database: {
-      type: "prisma",
-      prisma,
-      provider: "postgresql",
+import { PrismaClient } from "@repo/database";
+
+const db = new PrismaClient();
+
+export const auth = betterAuth({
+  baseURL: `${process.env["APP_DOMAIN"]}/api/auth`,
+  trustedOrigins: [
+    process.env["APP_DOMAIN"] || "http://localhost:3000",
+    process.env["API_DOMAIN"] || "http://localhost:4200",
+  ],
+  cors: {
+    origin: true, // This will allow all origins in development
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  },
+  database: prismaAdapter(db, {
+    provider: "postgresql",
+  }),
+  emailAndPassword: {
+    enabled: true,
+    autoSignIn: false,
+    emailVerified: false,
+    // async onBeforeCreateUser(data) {
+    //   // Ensure required fields are set
+    //   return {
+    //     ...data,
+    //     password: data.password || "", // Ensure password is never undefined
+    //     name: data.name || data.email.split("@")[0], // Use email username as name if not provided
+    //   };
+    // },
+  },
+  socialProviders: {
+    google: {
+      clientId: process.env["GOOGLE_CLIENT_ID"],
+      clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
+      mapProfileToUser: (profile) => {
+        return {
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+        };
+      },
     },
-    advanced: {
-      useSecureCookies: env.NODE_ENV === "production",
-      cookiePrefix: "session",
-    },
-    trustedOrigins: env.ORIGIN?.split(",") || [],
-    emailAndPassword: {
+  },
+  plugins: [
+    bearer(),
+    openAPI({
       enabled: true,
-      autoSignIn: true,
+      path: "/api/auth/openapi.json",
+    }),
+  ],
+  user: {
+    modelName: "User",
+    additionalFields: {
+      role: {
+        type: "string",
+        required: false,
+        defaultValue: "USER",
+        input: false, // don't allow user to set role
+      },
+      lang: {
+        type: "string",
+        required: false,
+        defaultValue: "en",
+      },
     },
-  };
-};
+  },
+  account: {
+    modelName: "Account",
+  },
+  session: {
+    modelName: "Session",
+  },
+});

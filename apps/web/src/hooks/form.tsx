@@ -1,13 +1,16 @@
-import { Slot } from '@radix-ui/react-slot';
-import * as React from 'react';
+import { Slot } from "@radix-ui/react-slot";
+import * as React from "react";
 
-import { Label } from './label';
-import { cn } from '@repo/utils';
+import { Label } from "@repo/ui";
+import { cn } from "@repo/utils";
+
 import {
   createFormHook,
   createFormHookContexts,
   useStore,
-} from '@tanstack/react-form';
+} from "@tanstack/react-form";
+
+import { m } from "@/paraglide/messages";
 
 const {
   fieldContext,
@@ -37,14 +40,14 @@ const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue,
 );
 
-function FormItem({ className, ...props }: React.ComponentProps<'div'>) {
+function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   const id = React.useId();
 
   return (
     <FormItemContext.Provider value={{ id }}>
       <div
         data-slot="form-item"
-        className={cn('grid gap-2', className)}
+        className={cn("grid gap-2", className)}
         {...props}
       />
     </FormItemContext.Provider>
@@ -56,8 +59,10 @@ const useFieldContext = () => {
   const { name, store, ...fieldContext } = _useFieldContext();
 
   const errors = useStore(store, (state) => state.meta.errors);
+  const value = useStore(store, (state) => state.value);
+
   if (!fieldContext) {
-    throw new Error('useFieldContext should be used within <FormItem>');
+    throw new Error("useFieldContext should be used within <FormItem>");
   }
 
   return {
@@ -68,6 +73,7 @@ const useFieldContext = () => {
     formMessageId: `${id}-form-item-message`,
     errors,
     store,
+    value,
     ...fieldContext,
   };
 };
@@ -82,7 +88,7 @@ function FormLabel({
     <Label
       data-slot="form-label"
       data-error={!!errors.length}
-      className={cn('data-[error=true]:text-destructive', className)}
+      className={cn("data-[error=true]:text-destructive", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -108,34 +114,38 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot>) {
   );
 }
 
-function FormDescription({ className, ...props }: React.ComponentProps<'p'>) {
+function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
   const { formDescriptionId } = useFieldContext();
 
   return (
     <p
       data-slot="form-description"
       id={formDescriptionId}
-      className={cn('text-muted-foreground text-sm', className)}
+      className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
   );
 }
 
-function FormMessage({ className, ...props }: React.ComponentProps<'p'>) {
+function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { errors, formMessageId } = useFieldContext();
+
   const body = errors.length
-    ? String(errors.at(0)?.message ?? '')
+    ? String(errors.at(0)?.message ?? "")
     : props.children;
+
   if (!body) return null;
+
+  const message = m[`errors.${body}` as keyof typeof m];
 
   return (
     <p
       data-slot="form-message"
       id={formMessageId}
-      className={cn('text-destructive text-sm', className)}
+      className={cn("text-destructive text-sm", className)}
       {...props}
     >
-      {body}
+      {message ? message() : body}
     </p>
   );
 }

@@ -2,13 +2,14 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useCallback } from "react";
 import { z } from "zod";
 
-import { Badge, Button, buttonVariants, Input, useAppForm } from "@repo/ui";
+import { Badge, Button, Input } from "@repo/ui";
+import { cn } from "@repo/utils";
 
 import { Google } from "@/assets/logos";
 import { Link } from "@/components/atoms/link";
-import { cn } from "@/lib/utils";
-import { m } from "@/paraglide/messages";
+import { useAppForm } from "@repo/ui";
 import { authClient } from "@/lib/auth-client";
+import { m } from "@/paraglide/messages";
 
 const REDIRECT_URL = "/dashboard";
 
@@ -35,8 +36,12 @@ const FormSchema = z.object({
 function RouteComponent() {
   const form = useAppForm({
     validators: {
-      onBlur: FormSchema,
       onChange: FormSchema,
+      onBlur: FormSchema,
+      // onChange: ({ formApi }) => {
+      //   console.log("formApi", formApi);
+      //   return FormSchema,
+      // },
     },
     defaultValues: {
       email: "",
@@ -46,10 +51,15 @@ function RouteComponent() {
   });
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      form.handleSubmit();
+    (ev: React.FormEvent) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+
+      console.log("form.state.errorMap", form.state.errorMap);
+
+      if (form.state.errorMap) return;
+
+      console.log("form.values", form);
 
       authClient.signUp.email(
         {
@@ -117,7 +127,7 @@ function RouteComponent() {
           </div>
         </div>
 
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit} method="POST">
           <form.AppField
             name="email"
             children={(field) => (
@@ -130,9 +140,6 @@ function RouteComponent() {
                     autoCapitalize="none"
                     autoComplete="email"
                     autoCorrect="off"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
                   />
                 </field.FormControl>
                 <field.FormMessage />
@@ -151,18 +158,38 @@ function RouteComponent() {
                     autoCapitalize="none"
                     autoComplete="new-password"
                     autoCorrect="off"
-                    value={field.state.value}
-                    onChange={(e) => field.handleChange(e.target.value)}
-                    onBlur={field.handleBlur}
                   />
                 </field.FormControl>
                 <field.FormMessage />
               </field.FormItem>
             )}
           />
-          <div className="flex flex-row-reverse justify-between items-center">
-            <Button type="submit">{m["auth.signup.action"]()}</Button>
-          </div>
+          <form.AppForm>
+            <form.Subscribe
+              selector={(state) => [
+                state.isValid,
+                state.canSubmit,
+                state.isSubmitting,
+                state.errorMap,
+              ]}
+              children={([isValid, canSubmit, isSubmitting, errorMap]) => (
+                <div className="flex flex-row-reverse justify-between items-center">
+                  {/* {Array.isArray(errorMap) && (
+                  <em>
+                    There was an error on the form:{" "}
+                    {errorMap?.map((lel) => `- ${lel}`)}
+                  </em>
+                )} */}
+                  <Button
+                    type="submit"
+                    // disabled={!canSubmit}
+                  >
+                    {isSubmitting ? "..." : m["auth.signup.action"]()}
+                  </Button>
+                </div>
+              )}
+            />
+          </form.AppForm>
         </form>
       </main>
       <footer>

@@ -1,4 +1,4 @@
-import { cn } from "~/lib/utils";
+import { cn } from "@repo/utils";
 
 const Divider = ({ className }: { className?: string }) => {
   return (

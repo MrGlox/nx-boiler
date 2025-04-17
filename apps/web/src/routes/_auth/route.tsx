@@ -3,17 +3,17 @@ import {
   useLocation,
   Link,
   Outlet,
-} from '@tanstack/react-router';
-import { m } from '@/paraglide/messages';
+} from "@tanstack/react-router";
+import { m } from "@/paraglide/messages";
 // import { locales, setLocale, getLocale } from '@/paraglide/runtime';
-import { cn } from '@/lib/utils';
-import Brand from '@/components/atoms/brand';
-import { buttonVariants } from '@repo/ui';
+import { cn } from "@repo/utils";
+import Brand from "@/components/atoms/brand";
+import { buttonVariants } from "@repo/ui";
 // import { LazyImage } from '@/components/lazy-image';
-import { ShowcaseFooter } from '@/containers/showcase/footer';
-import { LanguageSwitcher } from '@/containers/language-switcher';
+import { ShowcaseFooter } from "@/containers/showcase/footer";
+import { LanguageSwitcher } from "@/containers/language-switcher";
 
-export const Route = createFileRoute('/_auth')({
+export const Route = createFileRoute("/_auth")({
   component: RouteComponent,
 });
 
@@ -24,22 +24,22 @@ function RouteComponent() {
     <>
       <section className="container relative min-h-screen flex-col items-center justify-center grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <div className="flex justify-end gap-4 absolute right-1/2 lg:right-1/4 translate-x-1/2 top-4 md:top-8 max-w-[484px] w-[calc(50%+64px)]">
-          {pathname === '/signin' && (
+          {pathname === "/signin" && (
             <Link
               to="/signup"
-              className={cn(buttonVariants({ variant: 'ghost' }))}
+              className={cn(buttonVariants({ variant: "ghost" }))}
             >
-              {m['auth.signup.title']()}
+              {m["auth.signup.title"]()}
             </Link>
           )}
-          {(pathname === '/signup' ||
-            pathname === '/change-password' ||
-            pathname === '/forgot-password') && (
+          {(pathname === "/signup" ||
+            pathname === "/change-password" ||
+            pathname === "/forgot-password") && (
             <Link
               to="/signin"
-              className={cn(buttonVariants({ variant: 'ghost' }))}
+              className={cn(buttonVariants({ variant: "ghost" }))}
             >
-              {m['auth.signin.title']()}
+              {m["auth.signin.title"]()}
             </Link>
           )}
           <LanguageSwitcher />

@@ -31,7 +31,10 @@ function ErrorMessages({
   return (
     <>
       {errors.map((error) => (
-        <div key={typeof error === "string" ? error : error.message} className="text-red-500 mt-1 font-bold">
+        <div
+          key={typeof error === "string" ? error : error.message}
+          className="text-red-500 mt-1 font-bold"
+        >
           {typeof error === "string" ? error : error.message}
         </div>
       ))}
@@ -54,12 +57,12 @@ export function TextField({
       <Label htmlFor={label} className="mb-2 text-xl font-bold">
         {label}
       </Label>
-      <Input
+      {/* <Input
         value={field.state.value}
         placeholder={placeholder}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}
-      />
+      /> */}
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
     </div>
   );

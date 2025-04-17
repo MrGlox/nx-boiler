@@ -11,9 +11,8 @@ model User {
   name   String?
   image  String?
 
-  password        String
-  preferredLocale String  @default("en")
-  active          Boolean @default(false)
+  lang   String  @default("en")
+  active Boolean @default(false)
 
   stripeCustomerId String? @unique
   rememberMeToken  String?
@@ -52,10 +51,8 @@ model Account {
 
   scope     String?
   password  String?
-  createdAt DateTime?
-  updatedAt DateTime?
-
-  @@map("account")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Profile {
@@ -72,7 +69,7 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId String @unique // relation scalar field (used in the `@relation` attribute above)
+  userId String @unique
   user   User   @relation(fields: [userId], references: [id])
 }
 
@@ -112,7 +109,6 @@ model Session {
   impersonatedBy String?
 
   @@unique([token])
-  @@map("session")
 }
 
 model Verification {
@@ -122,8 +118,6 @@ model Verification {
   value      String
 
   expiresAt DateTime
-  createdAt DateTime?
-  updatedAt DateTime?
-
-  @@map("verification")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

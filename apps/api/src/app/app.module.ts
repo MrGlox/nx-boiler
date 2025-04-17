@@ -1,11 +1,9 @@
-import path, { join } from "node:path";
+import { join } from "node:path";
 
-import { Logger, MiddlewareConsumer, Module } from "@nestjs/common";
+import { Logger, Module } from "@nestjs/common";
+import { APP_GUARD } from "@nestjs/core";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-
-import { DatabaseModule } from "@repo/database";
-// import { MailerModule } from '@repo/shared/mailer';
-
+import { AuthGuard } from "better-auth/nestjs";
 import {
   AcceptLanguageResolver,
   HeaderResolver,
@@ -13,18 +11,14 @@ import {
   QueryResolver,
 } from "nestjs-i18n";
 
-// import googleConfig from '../auth/google/config/google.config';
-import appConfig from "../core/config/app.config";
-// import stripeConfig from '../payment/config/stripe.config';
+import { DatabaseModule } from "@repo/database";
 
+import appConfig from "../core/config/app.config";
 import { EventModule } from "../core/event/event.module";
 import { SchedulerModule } from "../core/scheduler/scheduler.module";
 
 import { AuthModule } from "../auth/auth.module";
 import { NotificationModule } from "../notification/notification.module";
-// import { WebhookController } from '../payment/events/webhook.controller';
-// import { WebhookService } from '../payment/events/webhook.service';
-// import { PaymentModule } from '../payment/payment.module';
 
 @Module({
   imports: [
@@ -58,16 +52,15 @@ import { NotificationModule } from "../notification/notification.module";
     AuthModule,
     EventModule,
     NotificationModule,
-    // PaymentModule,
-    // MailerModule,
     SchedulerModule,
   ],
-  controllers: [
-    // WebhookController
-  ],
+  controllers: [],
   providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
     Logger,
-    //WebhookService
   ],
 })
 export class AppModule {}

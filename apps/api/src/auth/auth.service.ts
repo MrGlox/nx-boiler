@@ -1,33 +1,86 @@
-import { Injectable } from "@nestjs/common";
+// import { Injectable } from "@nestjs/common";
+// import { DatabaseService } from "@repo/database";
+// import { betterAuth } from "better-auth";
+// import { bearer, openAPI } from "better-auth/plugins";
+// import { prismaAdapter } from "better-auth/adapters/prisma";
 
-import { betterAuth, type BetterAuthOptions } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { bearer, openAPI } from "better-auth/plugins";
+// @Injectable()
+// export class AuthService {
+//   private auth;
 
-import { PrismaClient } from "@repo/database";
+//   constructor(private readonly db: DatabaseService) {
+//     this.auth = this.initAuth();
+//   }
 
-const prisma = new PrismaClient();
+//   private initAuth() {
+//     return betterAuth({
+//       baseURL: `${process.env["APP_DOMAIN"]}/api/auth`,
+//       trustedOrigins: [
+//         process.env["APP_DOMAIN"] || "http://localhost:3000",
+//         process.env["API_DOMAIN"] || "http://localhost:4200",
+//       ],
+//       database: prismaAdapter(this.db, {
+//         provider: "postgresql",
+//         // models: {
+//         //   user: "User",
+//         //   account: "Account",
+//         //   session: "Session",
+//         //   verification: "Verification",
+//         // },
+//       }),
+//       emailAndPassword: {
+//         enabled: true,
+//         autoSignIn: false,
+//         async onBeforeCreateUser(data) {
+//           return {
+//             ...data,
+//             password: data.password || "", // Ensure password is never undefined
+//             name: data.name || data.email.split("@")[0],
+//           };
+//         },
+//       },
+//       socialProviders: {
+//         google: {
+//           clientId: process.env["GOOGLE_CLIENT_ID"],
+//           clientSecret: process.env["GOOGLE_CLIENT_SECRET"],
+//           mapProfileToUser: (profile) => {
+//             return {
+//               firstName: profile.given_name,
+//               lastName: profile.family_name,
+//             };
+//           },
+//         },
+//       },
+//       plugins: [
+//         bearer(),
+//         openAPI({
+//           enabled: true,
+//           path: "/api/auth/openapi.json",
+//         }),
+//       ],
+//       user: {
+//         modelName: "User",
+//         additionalFields: {
+//           role: {
+//             type: "string",
+//             required: false,
+//             defaultValue: "USER",
+//             input: false,
+//           },
+//           lang: {
+//             type: "string",
+//             required: false,
+//             defaultValue: "en",
+//           },
+//         },
+//       },
+//       session: {
+//         modelName: "Session",
+//       },
+//     });
+//   }
 
-@Injectable()
-export class AuthService {
-  public readonly config: BetterAuthOptions;
-  public readonly auth: ReturnType<typeof betterAuth>;
-
-  constructor() {
-    this.config = {
-      basePath: "/auth",
-      plugins: [openAPI({ path: "/docs" }), bearer()],
-      database: prismaAdapter(prisma, {
-        provider: "postgresql",
-      }),
-      advanced: {
-        useSecureCookies: process.env.NODE_ENV === "production",
-        cookiePrefix: "session",
-      },
-      trustedOrigins: process.env.ORIGIN?.split(",") || [],
-      emailAndPassword: { enabled: true, autoSignIn: true },
-    };
-
-    this.auth = betterAuth(this.config);
-  }
-}
+//   getAuth() {
+//     return this.auth;
+//   }
+// }

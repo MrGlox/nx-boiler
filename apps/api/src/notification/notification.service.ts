@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { Notification, Session, User } from '@repo/database';
+import { Injectable } from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
+import { Notification, Session, User } from "@repo/database";
 
-import { DatabaseService } from '@repo/database';
+import { DatabaseService } from "@repo/database";
 
 @Injectable()
 export class NotificationService {
@@ -20,7 +20,7 @@ export class NotificationService {
     const notification = await this.prisma.notification.create({
       data: {
         userId,
-        message: 'notification_created',
+        message: "notification_created",
       },
       select: {
         id: true,
@@ -38,30 +38,30 @@ export class NotificationService {
       },
     });
 
-    this.eventEmitter.emit('user.notification', notification);
+    this.eventEmitter.emit("user.notification", notification);
 
     // @ts-ignore
     return notification;
   }
 
-  public async getNotifications(userId: string): Promise<Notification[]> {
-    // Get notifications
-    const notifications = this.prisma.notification.findMany({
-      where: {
-        userId,
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      take: 10,
-    });
+  // public async getNotifications(userId: string): Promise<Notification[]> {
+  //   // Get notifications
+  //   const notifications = this.prisma.notification.findMany({
+  //     where: {
+  //       userId,
+  //     },
+  //     orderBy: {
+  //       createdAt: 'desc',
+  //     },
+  //     take: 10,
+  //   });
 
-    if (!notifications) {
-      return [];
-    }
+  //   if (!notifications) {
+  //     return [];
+  //   }
 
-    return notifications;
-  }
+  //   return notifications;
+  // }
 
   public async markAllNotificationAsRead(userId: string): Promise<void> {
     await this.prisma.notification.updateMany({

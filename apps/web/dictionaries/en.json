@@ -294,5 +294,11 @@
 			"thanks": "Thank you for your payment.",
 			"back": "Back to dashboard"
 		}
+	},
+	"errors": {
+		"required": "This field is required",
+		"min": "This field must be at least {min} characters long",
+		"max": "This field must be at most {max} characters long",
+		"email": "This field must be a valid email address"
 	}
 }
