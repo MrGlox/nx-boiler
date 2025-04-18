@@ -4,6 +4,8 @@ import * as React from "react";
 import { Label } from "./label";
 import { cn } from "@repo/utils";
 
+import { m } from "@repo/dictionaries/messages";
+
 import {
   createFormHook,
   createFormHookContexts,
@@ -134,6 +136,9 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
 
   if (!body) return null;
 
+  const [message, value] = body?.toString().split("/") || [];
+  const parsedMessage = m[message]?.({ value: value });
+
   return (
     <p
       data-slot="form-message"
@@ -141,7 +146,7 @@ function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
       className={cn("text-destructive text-sm", className)}
       {...props}
     >
-      {body}
+      {parsedMessage ? parsedMessage : body}
     </p>
   );
 }

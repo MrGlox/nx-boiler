@@ -7,7 +7,9 @@ import {
 } from "@tanstack/react-start/server";
 
 import { getWebRequest } from "vinxi/http";
-import { paraglideMiddleware } from "./paraglide/server.js";
+
+import { paraglideMiddleware } from "@repo/dictionaries/server.js";
+
 import { createRouter } from "./router";
 
 export default defineEventHandler((event) =>

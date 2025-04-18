@@ -1,4 +1,4 @@
-import { m } from "@/paraglide/messages";
+import { m } from "@repo/dictionaries/messages";
 
 import { LanguageSwitcher } from "../language-switcher";
 

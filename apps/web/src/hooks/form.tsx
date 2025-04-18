@@ -10,7 +10,7 @@ import {
   useStore,
 } from "@tanstack/react-form";
 
-import { m } from "@/paraglide/messages";
+import { m } from "@repo/dictionaries/messages";
 
 const {
   fieldContext,

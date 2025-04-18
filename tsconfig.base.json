@@ -17,6 +17,7 @@
     "paths": {
       "@repo/components": ["libs/ui/src/components/index.gen.ts"],
       "@repo/database": ["libs/database/src/index.ts"],
+      "@repo/dictionaries/*": ["libs/shared/dictionaries/src/paraglide/*"],
       "@repo/dto": ["libs/shared/dto/src/index.ts"],
       "@repo/shared/mailer": ["libs/shared/mailer/src/index.ts"],
       "@repo/styles/*": ["libs/ui/src/styles/*"],

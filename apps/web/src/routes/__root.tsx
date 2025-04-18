@@ -1,22 +1,25 @@
-import type { QueryClient } from '@tanstack/react-query';
+import type { QueryClient } from "@tanstack/react-query";
 import {
   HeadContent,
   Outlet,
   Scripts,
   createRootRouteWithContext,
-} from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import type { TRPCOptionsProxy } from '@trpc/tanstack-react-query';
+} from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
+import { z } from "zod";
+
+import { getLocale } from "@repo/dictionaries/runtime";
 
 // import Header from '@/components/Header';
-import { NotFound } from '@/components/NotFound';
-import TanstackQueryLayout from '@/integrations/tanstack-query/layout';
-import { getLocale } from '@/paraglide/runtime.js';
-import appCss from '@/styles.css?url';
-import { seo } from '@/utils/seo';
+import { customErrorMap } from "@/config/zod";
+import { NotFound } from "@/components/NotFound";
+import TanstackQueryLayout from "@/integrations/tanstack-query/layout";
+import appCss from "@/styles.css?url";
+import { seo } from "@/utils/seo";
 
-import { DefaultCatchBoundary } from '@/components/DefaultCatchBoundary';
-import type { TRPCRouter } from '@/integrations/trpc/router';
+import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary";
+import type { TRPCRouter } from "@/integrations/trpc/router";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -28,43 +31,43 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
     meta: [
       {
-        charSet: 'utf-8',
+        charSet: "utf-8",
       },
       {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
       },
       ...seo({
         title:
-          'TanStack Start | Type-Safe, Client-First, Full-Stack React Framework',
+          "TanStack Start | Type-Safe, Client-First, Full-Stack React Framework",
         description:
-          'TanStack Start is a type-safe, client-first, full-stack React framework.',
+          "TanStack Start is a type-safe, client-first, full-stack React framework.",
       }),
     ],
     links: [
       {
-        rel: 'stylesheet',
+        rel: "stylesheet",
         href: appCss,
       },
       {
-        rel: 'apple-touch-icon',
-        sizes: '180x180',
-        href: '/apple-touch-icon.png',
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "/apple-touch-icon.png",
       },
       {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '32x32',
-        href: '/favicon-32x32.png',
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        href: "/favicon-32x32.png",
       },
       {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '16x16',
-        href: '/favicon-16x16.png',
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        href: "/favicon-16x16.png",
       },
-      { rel: 'manifest', href: '/site.webmanifest', color: '#fffff' },
-      { rel: 'icon', href: '/favicon.ico' },
+      { rel: "manifest", href: "/site.webmanifest", color: "#fffff" },
+      { rel: "icon", href: "/favicon.ico" },
     ],
   }),
   errorComponent: (props) => {
@@ -87,6 +90,8 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  z.setErrorMap(customErrorMap);
+
   return (
     <html lang={getLocale()}>
       <head>

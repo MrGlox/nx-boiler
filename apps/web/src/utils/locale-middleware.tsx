@@ -8,8 +8,8 @@ import {
   baseLocale,
   getLocale,
   overwriteGetLocale,
-} from "@/paraglide/runtime";
-import { paraglideMiddleware } from "@/paraglide/server";
+} from "@repo/dictionaries/runtime";
+import { paraglideMiddleware } from "@repo/dictionaries/server.js";
 
 export const localeMiddleware = createMiddleware()
   .client(async (context) => {

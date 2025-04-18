@@ -9,7 +9,7 @@ import { Google } from "@/assets/logos";
 import { Link } from "@/components/atoms/link";
 import { useAppForm } from "@repo/ui";
 import { authClient } from "@/lib/auth-client";
-import { m } from "@/paraglide/messages";
+import * as m from "@repo/dictionaries/messages";
 
 const REDIRECT_URL = "/dashboard";
 
@@ -25,12 +25,8 @@ export const Route = createFileRoute("/_auth/signup")({
 });
 
 const FormSchema = z.object({
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
-  }),
+  email: z.string().email(),
+  password: z.string().min(8),
 });
 
 function RouteComponent() {

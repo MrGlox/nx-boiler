@@ -6,7 +6,7 @@ import {
   getLocale,
   overwriteGetLocale,
   strategy,
-} from "./paraglide/runtime.js";
+} from "@repo/dictionaries/runtime";
 import { createRouter } from "./router";
 
 const router = createRouter();

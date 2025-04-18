@@ -4,8 +4,8 @@ import {
   Link,
   Outlet,
 } from "@tanstack/react-router";
-import { m } from "@/paraglide/messages";
-// import { locales, setLocale, getLocale } from '@/paraglide/runtime';
+import { m } from "@repo/dictionaries/messages";
+// import { locales, setLocale, getLocale } from '@repo/dictionaries/runtime';
 import { cn } from "@repo/utils";
 import Brand from "@/components/atoms/brand";
 import { buttonVariants } from "@repo/ui";

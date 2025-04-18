@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import { useLocation, useNavigate } from '@tanstack/react-router';
+import { useMemo } from "react";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 
 import {
   Select,
@@ -7,19 +7,19 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@repo/ui';
+} from "@repo/ui";
 
 import {
   getLocale,
   setLocale,
-  locales,
+  // locales,
   type Locale,
-} from '@/paraglide/runtime.js';
+} from "@repo/dictionaries/runtime";
 
 // Hardcoded languages for demo purposes.
 export const langs = [
-  { label: '🇺🇸 English', value: 'en' },
-  { label: '🇫🇷 Français', value: 'fr' },
+  { label: "🇺🇸 English", value: "en" },
+  { label: "🇫🇷 Français", value: "fr" },
 ];
 
 export function LanguageSwitcher() {
@@ -28,7 +28,7 @@ export function LanguageSwitcher() {
 
   const currentLocale = getLocale();
 
-  const pathname = location.pathname.replace(/\/$/, '');
+  const pathname = location.pathname.replace(/\/$/, "");
 
   const { currentLanguage, resolvedLanguage } = useMemo(() => {
     return {
@@ -55,7 +55,7 @@ export function LanguageSwitcher() {
           <SelectItem
             key={value}
             {...{ value }}
-            className={currentLanguage.value === value ? 'hidden' : ''}
+            className={currentLanguage.value === value ? "hidden" : ""}
           >
             {label}
           </SelectItem>

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "types": ["vite/client"],
+    "paths": {
+      "@repo/dictionaries/*": ["./src/paraglide/*"]
+    }
+  },
+  "files": [],
+  "include": ["src/**/*", "messages/**/*"],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    }
+  ],
+  "extends": "../../../tsconfig.base.json"
+}
