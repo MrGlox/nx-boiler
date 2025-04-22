@@ -1,10 +1,10 @@
 import { Slot } from "@radix-ui/react-slot";
 import * as React from "react";
 
-import { Label } from "./label";
 import { cn } from "@repo/utils";
-
 import { m } from "@repo/dictionaries/messages";
+
+import { Label } from "./label";
 
 import {
   createFormHook,
@@ -23,6 +23,7 @@ const { useAppForm, withForm } = createFormHook({
   fieldContext,
   formContext,
   fieldComponents: {
+    FormAlert,
     FormLabel,
     FormControl,
     FormDescription,
@@ -39,6 +40,26 @@ type FormItemContextValue = {
 const FormItemContext = React.createContext<FormItemContextValue>(
   {} as FormItemContextValue,
 );
+
+function FormAlert({ className, ...props }: React.ComponentProps<"div">) {
+  const { id } = React.useContext(FormItemContext);
+  const { store } = _useFieldContext();
+
+  // const formErrorMap = useStore(store, (state) => {
+  //   console.log(state);
+  //   return state;
+  // });
+
+  return (
+    <FormItemContext.Provider value={{ id }}>
+      <div
+        data-slot="form-alert"
+        className={cn("grid gap-2", className)}
+        {...props}
+      />
+    </FormItemContext.Provider>
+  );
+}
 
 function FormItem({ className, ...props }: React.ComponentProps<"div">) {
   const id = React.useId();

@@ -40,14 +40,14 @@ const router = createRouter();
 createIsomorphicFn()
   .server(() => {
     SentryServer.init({
-      dsn: import.meta.env.VITE_SENTRY_DSN,
+      dsn: import.meta.env["VITE_SENTRY_DSN"],
       tracesSampleRate: 1.0,
       profilesSampleRate: 1.0,
     });
   })
   .client(() => {
     Sentry.init({
-      dsn: import.meta.env.VITE_SENTRY_DSN,
+      dsn: import.meta.env["VITE_SENTRY_DSN"],
       integrations: [
         Sentry.replayIntegration({
           maskAllText: false,

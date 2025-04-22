@@ -3,7 +3,7 @@ import {
   defaultAPIFileRouteHandler,
 } from "@tanstack/react-start/api";
 
-import { paraglideMiddleware } from "./paraglide/server.js";
+import { paraglideMiddleware } from "@repo/dictionaries/server";
 
 export default createStartAPIHandler((ctx) =>
   paraglideMiddleware(ctx.request, () => defaultAPIFileRouteHandler(ctx)),

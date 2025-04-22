@@ -18,6 +18,13 @@ export const auth = betterAuth({
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   },
+  advanced: {
+    cookies: {
+      session_token: {
+        name: "auth_session",
+      },
+    },
+  },
   database: prismaAdapter(db, {
     provider: "postgresql",
   }),
@@ -25,6 +32,7 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: false,
     emailVerified: false,
+    requireEmailVerification: true,
     // async onBeforeCreateUser(data) {
     //   // Ensure required fields are set
     //   return {

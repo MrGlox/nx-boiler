@@ -21,13 +21,13 @@ import { seo } from "@/utils/seo";
 import { DefaultCatchBoundary } from "@/components/DefaultCatchBoundary";
 import type { TRPCRouter } from "@/integrations/trpc/router";
 
-interface MyRouterContext {
+interface RouterContext {
   queryClient: QueryClient;
-
   trpc: TRPCOptionsProxy<TRPCRouter>;
+  user: {};
 }
 
-export const Route = createRootRouteWithContext<MyRouterContext>()({
+export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [
       {

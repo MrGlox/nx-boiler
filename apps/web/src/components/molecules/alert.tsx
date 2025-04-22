@@ -3,22 +3,21 @@ import {
   CrossCircledIcon,
   ExclamationTriangleIcon,
   InfoCircledIcon,
-} from '@radix-ui/react-icons';
-import { type HTMLAttributes, forwardRef } from 'react';
-
+} from "@radix-ui/react-icons";
+import { type HTMLAttributes, forwardRef } from "react";
 import {
   Alert as AlertComponent,
   AlertDescription,
   AlertTitle,
-} from '@repo/ui';
-import { cn } from '@repo/utils';
+} from "@repo/ui";
+import { cn } from "@repo/utils";
 
 export enum AlertVariant {
-  default = 'default',
-  destructive = 'destructive',
-  success = 'success',
-  warning = 'warning',
-  info = 'info',
+  default = "default",
+  destructive = "destructive",
+  success = "success",
+  warning = "warning",
+  info = "info",
 }
 
 const IconVariants = {
@@ -34,26 +33,26 @@ const Alert = forwardRef<
   HTMLAttributes<HTMLDivElement> & { variant?: keyof typeof AlertVariant }
 >(
   (
-    { className, variant = 'default', children, title = false, ...props },
+    { className, variant = "default", children, title = false, ...props },
     ref,
   ) => {
     return (
       <AlertComponent
         {...{ ...props, ref, variant }}
-        className={cn('mb-4', className)}
+        className={cn("mb-4", className)}
       >
         {IconVariants[variant]}
-        {typeof title === 'boolean' && title ? (
+        {typeof title === "boolean" && title ? (
           <AlertTitle>
-            {/* {t(
-              variant as
-                | 'default'
-                | 'destructive'
-                | 'success'
-                | 'warning'
-                | 'info',
-              typeof title === 'string' ? title : '',
-            )} */}
+            {/* {m[
+              (variant as
+                | "default"
+                | "destructive"
+                | "success"
+                | "warning"
+                | "info",
+              typeof title === "string" ? title : "")
+            ]()} */}
           </AlertTitle>
         ) : (
           title && <AlertTitle>{title}</AlertTitle>
@@ -63,6 +62,6 @@ const Alert = forwardRef<
     );
   },
 );
-Alert.displayName = 'Alert';
+Alert.displayName = "Alert";
 
 export { Alert };

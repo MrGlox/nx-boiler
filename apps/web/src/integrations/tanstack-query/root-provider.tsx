@@ -6,47 +6,51 @@ import superjson from "superjson";
 import { TRPCProvider } from "@/integrations/trpc/react";
 
 import type { TRPCRouter } from "@/integrations/trpc/router";
+import { getSessionToken } from "@/lib/auth";
 
 function getUrl() {
-	const base = (() => {
-		if (typeof window !== "undefined") return "";
-		return `http://localhost:${process.env.PORT ?? 3000}`;
-	})();
-	return `${base}/api/trpc`;
+  const base = (() => {
+    if (typeof window !== "undefined") return "";
+    return `http://localhost:${process.env.PORT ?? 3000}`;
+  })();
+  return `${base}/api/trpc`;
 }
 
 export const trpcClient = createTRPCClient<TRPCRouter>({
-	links: [
-		httpBatchStreamLink({
-			transformer: superjson,
-			url: getUrl(),
-		}),
-	],
+  links: [
+    httpBatchStreamLink({
+      transformer: superjson,
+      url: getUrl(),
+    }),
+  ],
 });
 
 const queryClient = new QueryClient({
-	defaultOptions: {
-		dehydrate: { serializeData: superjson.serialize },
-		hydrate: { deserializeData: superjson.deserialize },
-	},
+  defaultOptions: {
+    dehydrate: { serializeData: superjson.serialize },
+    hydrate: { deserializeData: superjson.deserialize },
+  },
 });
 
 const serverHelpers = createTRPCOptionsProxy({
-	client: trpcClient,
-	queryClient: queryClient,
+  client: trpcClient,
+  queryClient: queryClient,
 });
 
 export function getContext() {
-	return {
-		queryClient,
-		trpc: serverHelpers,
-	};
+  return {
+    queryClient,
+    trpc: serverHelpers,
+    user: {
+      sessionToken: getSessionToken(),
+    },
+  };
 }
 
 export function Provider({ children }: { children: React.ReactNode }) {
-	return (
-		<TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
-			{children}
-		</TRPCProvider>
-	);
+  return (
+    <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
+      {children}
+    </TRPCProvider>
+  );
 }

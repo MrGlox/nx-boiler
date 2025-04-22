@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 
-import * as m from "@repo/dictionaries/messages";
+import { m } from "@repo/dictionaries/messages";
 import { getLocale } from "@repo/dictionaries/runtime";
 
 export const getServerMessage = createServerFn()

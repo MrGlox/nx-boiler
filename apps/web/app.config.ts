@@ -1,11 +1,11 @@
+import path from "node:path";
+
 import { defineConfig } from "@tanstack/react-start/config";
 import tailwindcss from "@tailwindcss/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import tsConfigPaths from "vite-tsconfig-paths";
-
-import path from "node:path";
 
 export default defineConfig({
   tsr: {
@@ -22,19 +22,13 @@ export default defineConfig({
         ),
         "@repo/styles": path.resolve("libs/ui/src/styles"),
         "@repo/ui": path.resolve("libs/ui/src/components/index.gen.ts"),
-        // "@repo/dictionaries/runtime": path.resolve(
-        //   "libs/shared/dictionaries/src/paraglide/runtime.js",
-        // ),
-        // "@repo/dictionaries/messages": path.resolve(
-        //   "libs/shared/dictionaries/src/paraglide/messages.js",
-        // ),
       },
     },
     plugins: [
-      // this is the plugin that enables path aliases
       paraglideVitePlugin({
-        project: path.resolve("libs/shared/dictionaries/project.inlang"), // Path to your inlang project
-        outdir: path.resolve("libs/shared/dictionaries/src/paraglide"), // Where generated files will be placed
+        project: path.resolve("libs/shared/dictionaries/project.inlang"),
+        outdir: path.resolve("libs/shared/dictionaries/src/paraglide"),
+        cookieName: "locale",
       }),
       tailwindcss(),
       nxViteTsPaths(),

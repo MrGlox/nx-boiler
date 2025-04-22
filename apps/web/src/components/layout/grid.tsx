@@ -1,4 +1,5 @@
 import { cn } from "@repo/utils";
+import type { JSX } from "react";
 
 interface GridProps {
   tag?:

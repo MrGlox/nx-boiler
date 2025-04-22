@@ -324,5 +324,9 @@
 		"never": "never",
 		"map": "map",
 		"set": "ensemble"
+	},
+	"codes": {
+		"EMAIL_NOT_VERIFIED": "Please verify your email address",
+		"INVALID_EMAIL_OR_PASSWORD": "Email ou mot de passe invalide"
 	}
 }

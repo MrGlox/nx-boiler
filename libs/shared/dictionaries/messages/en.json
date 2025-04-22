@@ -407,5 +407,9 @@
 		"never": "never",
 		"map": "map",
 		"set": "set"
+	},
+	"codes": {
+		"EMAIL_NOT_VERIFIED": "Please verify your email address",
+		"INVALID_EMAIL_OR_PASSWORD": "Invalid email or password"
 	}
 }

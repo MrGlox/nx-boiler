@@ -13,7 +13,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@repo/utils": ["../utils/src/index.ts"]
+      "@repo/utils": ["../utils/src/index.ts"],
+      "@repo/dictionaries/*": ["../shared/dictionaries/src/paraglide/*"]
     }
   },
   "files": [],

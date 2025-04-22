@@ -1,25 +1,38 @@
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { useCallback, useState } from "react";
+import {
+  createFileRoute,
+  useNavigate,
+  useSearch,
+} from "@tanstack/react-router";
 import { z } from "zod";
 
 import { m } from "@repo/dictionaries/messages";
-import { Alert, Badge, Button, Input, useAppForm } from "@repo/ui";
+import {
+  Button,
+  Input,
+  useAppForm,
+  Alert,
+  AlertTitle,
+  AlertDescription,
+} from "@repo/ui";
 import { cn } from "@repo/utils";
 
-import { Google } from "@/assets/logos";
 import { Link } from "@/components/atoms/link";
-import { sessionToken, signIn, signUp, useSession } from "@/lib/auth";
+import { sessionToken, resetPassword, useSession } from "@/lib/auth";
 import { Divider } from "@/components/atoms/divider";
 
-const REDIRECT_URL = "/dashboard";
+const searchSchema = z.object({
+  token: z.string(),
+});
 
-export const Route = createFileRoute("/_auth/signup")({
-  component: RouteComponent,
+export const Route = createFileRoute("/_auth/change-password")({
+  component: ChangePasswordPage,
+  validateSearch: searchSchema,
   loader: async () => {
     if (sessionToken()) {
-      return redirect({
-        to: "/dashboard",
-      });
+      return {
+        redirect: "/dashboard",
+      };
     }
 
     return null;
@@ -27,13 +40,13 @@ export const Route = createFileRoute("/_auth/signup")({
 });
 
 const FormSchema = z.object({
-  email: z.string().email(),
   password: z.string().min(8),
 });
 
-function RouteComponent() {
+function ChangePasswordPage() {
   const navigate = useNavigate();
   const { data: session } = useSession();
+  const { token } = useSearch({ strict: false });
 
   if (session) {
     navigate({
@@ -42,28 +55,34 @@ function RouteComponent() {
   }
 
   const [error, setError] = useState<string | null>(null);
+  console.log("token", token);
+
+  if (!token) {
+    navigate({
+      to: "/forgot-password",
+    });
+  }
 
   const form = useAppForm({
     validators: {
       onSubmit: FormSchema,
     },
     defaultValues: {
-      email: "",
       password: "",
     },
   });
 
   const handleSubmit = useCallback(
-    (ev: React.FormEvent) => {
+    async (ev: React.FormEvent) => {
       ev.preventDefault();
       ev.stopPropagation();
 
-      void form.handleSubmit();
+      await form.handleSubmit();
 
-      signUp.email(
+      await resetPassword(
         {
-          ...form.state.values,
-          name: "", // nullable just for type
+          newPassword: form.state.values.password,
+          token: token || "",
         },
         {
           onSuccess: () => {
@@ -72,72 +91,33 @@ function RouteComponent() {
             });
           },
           onError: ({ error }) => {
-            // display the error message
-            setError(error.message);
+            setError(error?.["code"] || "An unknown error occurred");
           },
         },
       );
     },
-    [form, navigate],
+    [form, navigate, token],
   );
 
   return (
     <div className="mx-auto flex w-full flex-col justify-center space-y-6 max-w-[420px]">
       <header className="flex flex-col space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
-          {m["auth.signup.title"]()}
+          {m["auth.change_password.title"]()}
         </h1>
         <p className="text-muted-foreground text-sm">
-          {m["auth.signup.description"]()}
+          {m["auth.change_password.description"]()}
         </p>
       </header>
       <main className={cn("grid gap-6")}>
-        <Button
-          variant="outline"
-          onClick={() =>
-            signIn.social({
-              provider: "google",
-              callbackURL: REDIRECT_URL,
-            })
-          }
-          className={cn("group relative inline-flex ")}
-        >
-          <span className="inline-flex items-center">
-            <Google className="mr-2 size-4" />
-            Google
-          </span>
-          <Badge
-            variant="info"
-            className="group-hover:animate-bounce absolute -right-[12px] -top-[6px] rotate-12"
-          >
-            {m["common.recommended"]()}
-          </Badge>
-        </Button>
-        <Divider>{m["auth.or_continue"]()}</Divider>
+        <Divider />
         {error && (
           <Alert variant="destructive">
-            {m[`codes.${error}`]?.() || error}
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
         <form className="space-y-6" onSubmit={handleSubmit} method="POST">
-          <form.AppField
-            name="email"
-            children={(field) => (
-              <field.FormItem>
-                <field.FormLabel>{m["auth.fields.email"]()}</field.FormLabel>
-                <field.FormControl>
-                  <Input
-                    placeholder={m["auth.fields.email_placeholder"]()}
-                    type="email"
-                    autoCapitalize="none"
-                    autoComplete="email"
-                    autoCorrect="off"
-                  />
-                </field.FormControl>
-                <field.FormMessage />
-              </field.FormItem>
-            )}
-          />
           <form.AppField
             name="password"
             children={(field) => (
@@ -161,7 +141,7 @@ function RouteComponent() {
             children={([canSubmit, isSubmitting]) => (
               <div className="flex flex-row-reverse justify-between items-center">
                 <Button type="submit" disabled={!canSubmit || isSubmitting}>
-                  {isSubmitting ? "..." : m["auth.signup.action"]()}
+                  {isSubmitting ? "..." : m["auth.change_password.update"]()}
                 </Button>
               </div>
             )}
@@ -172,13 +152,13 @@ function RouteComponent() {
         <p className="text-muted-foreground -mb-10 mt-10 px-8 text-center text-sm">
           {m["auth.agree"]()}{" "}
           <Button asChild variant="link">
-            <Link to="/terms" className="variant underline-offset-4">
+            <Link to="/" className="variant underline-offset-4">
               {m["auth.terms"]()}
             </Link>
           </Button>{" "}
           {m["auth.and"]()}{" "}
           <Button asChild variant="link">
-            <Link to="/privacy" className="variant underline-offset-4">
+            <Link to="/" className="variant underline-offset-4">
               {m["auth.privacy"]()}
             </Link>
           </Button>
@@ -188,3 +168,5 @@ function RouteComponent() {
     </div>
   );
 }
+
+export default ChangePasswordPage;

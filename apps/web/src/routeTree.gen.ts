@@ -11,13 +11,18 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/dashboard/route'
 import { Route as AuthRouteImport } from './routes/_auth/route'
 import { Route as IndexImport } from './routes/index'
+import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as ExampleChatImport } from './routes/example/chat'
 import { Route as DemoTanstackQueryImport } from './routes/demo/tanstack-query'
 import { Route as DemoStoreImport } from './routes/demo/store'
 import { Route as AuthSignupImport } from './routes/_auth/signup'
 import { Route as AuthSigninImport } from './routes/_auth/signin'
+import { Route as AuthForgotPasswordImport } from './routes/_auth/forgot-password'
+import { Route as AuthConfirmEmailImport } from './routes/_auth/confirm-email'
+import { Route as AuthChangePasswordImport } from './routes/_auth/change-password'
 import { Route as ExampleGuitarsIndexImport } from './routes/example/guitars.index'
 import { Route as ExampleGuitarsGuitarIdImport } from './routes/example/guitars.$guitarId'
 import { Route as DemoStartServerFuncsImport } from './routes/demo/start.server-funcs'
@@ -28,6 +33,12 @@ import { Route as DemoEntryTestingImport } from './routes/demo/entry.testing'
 
 // Create/Update Routes
 
+const DashboardRouteRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthRouteRoute = AuthRouteImport.update({
   id: '/_auth',
   getParentRoute: () => rootRoute,
@@ -37,6 +48,12 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardIndexRoute = DashboardIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRouteRoute,
 } as any)
 
 const ExampleChatRoute = ExampleChatImport.update({
@@ -66,6 +83,24 @@ const AuthSignupRoute = AuthSignupImport.update({
 const AuthSigninRoute = AuthSigninImport.update({
   id: '/signin',
   path: '/signin',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+
+const AuthForgotPasswordRoute = AuthForgotPasswordImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+
+const AuthConfirmEmailRoute = AuthConfirmEmailImport.update({
+  id: '/confirm-email',
+  path: '/confirm-email',
+  getParentRoute: () => AuthRouteRoute,
+} as any)
+
+const AuthChangePasswordRoute = AuthChangePasswordImport.update({
+  id: '/change-password',
+  path: '/change-password',
   getParentRoute: () => AuthRouteRoute,
 } as any)
 
@@ -129,6 +164,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth/change-password': {
+      id: '/_auth/change-password'
+      path: '/change-password'
+      fullPath: '/change-password'
+      preLoaderRoute: typeof AuthChangePasswordImport
+      parentRoute: typeof AuthRouteImport
+    }
+    '/_auth/confirm-email': {
+      id: '/_auth/confirm-email'
+      path: '/confirm-email'
+      fullPath: '/confirm-email'
+      preLoaderRoute: typeof AuthConfirmEmailImport
+      parentRoute: typeof AuthRouteImport
+    }
+    '/_auth/forgot-password': {
+      id: '/_auth/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof AuthForgotPasswordImport
+      parentRoute: typeof AuthRouteImport
+    }
     '/_auth/signin': {
       id: '/_auth/signin'
       path: '/signin'
@@ -163,6 +226,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/example/chat'
       preLoaderRoute: typeof ExampleChatImport
       parentRoute: typeof rootRoute
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexImport
+      parentRoute: typeof DashboardRouteImport
     }
     '/demo/entry/testing': {
       id: '/demo/entry/testing'
@@ -219,11 +289,17 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthRouteRouteChildren {
+  AuthChangePasswordRoute: typeof AuthChangePasswordRoute
+  AuthConfirmEmailRoute: typeof AuthConfirmEmailRoute
+  AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute
   AuthSigninRoute: typeof AuthSigninRoute
   AuthSignupRoute: typeof AuthSignupRoute
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
+  AuthChangePasswordRoute: AuthChangePasswordRoute,
+  AuthConfirmEmailRoute: AuthConfirmEmailRoute,
+  AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthSigninRoute: AuthSigninRoute,
   AuthSignupRoute: AuthSignupRoute,
 }
@@ -232,14 +308,31 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface DashboardRouteRouteChildren {
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthRouteRouteWithChildren
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/change-password': typeof AuthChangePasswordRoute
+  '/confirm-email': typeof AuthConfirmEmailRoute
+  '/forgot-password': typeof AuthForgotPasswordRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/demo/entry/testing': typeof DemoEntryTestingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
@@ -252,11 +345,15 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof AuthRouteRouteWithChildren
+  '/change-password': typeof AuthChangePasswordRoute
+  '/confirm-email': typeof AuthConfirmEmailRoute
+  '/forgot-password': typeof AuthForgotPasswordRoute
   '/signin': typeof AuthSigninRoute
   '/signup': typeof AuthSignupRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/dashboard': typeof DashboardIndexRoute
   '/demo/entry/testing': typeof DemoEntryTestingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
@@ -270,11 +367,16 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/_auth/change-password': typeof AuthChangePasswordRoute
+  '/_auth/confirm-email': typeof AuthConfirmEmailRoute
+  '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/signin': typeof AuthSigninRoute
   '/_auth/signup': typeof AuthSignupRoute
   '/demo/store': typeof DemoStoreRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
+  '/dashboard/': typeof DashboardIndexRoute
   '/demo/entry/testing': typeof DemoEntryTestingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
@@ -289,11 +391,16 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/dashboard'
+    | '/change-password'
+    | '/confirm-email'
+    | '/forgot-password'
     | '/signin'
     | '/signup'
     | '/demo/store'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/dashboard/'
     | '/demo/entry/testing'
     | '/demo/form/address'
     | '/demo/form/simple'
@@ -305,11 +412,15 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/change-password'
+    | '/confirm-email'
+    | '/forgot-password'
     | '/signin'
     | '/signup'
     | '/demo/store'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/dashboard'
     | '/demo/entry/testing'
     | '/demo/form/address'
     | '/demo/form/simple'
@@ -321,11 +432,16 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_auth'
+    | '/dashboard'
+    | '/_auth/change-password'
+    | '/_auth/confirm-email'
+    | '/_auth/forgot-password'
     | '/_auth/signin'
     | '/_auth/signup'
     | '/demo/store'
     | '/demo/tanstack-query'
     | '/example/chat'
+    | '/dashboard/'
     | '/demo/entry/testing'
     | '/demo/form/address'
     | '/demo/form/simple'
@@ -339,6 +455,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRouteRoute: typeof AuthRouteRouteWithChildren
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
   DemoStoreRoute: typeof DemoStoreRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   ExampleChatRoute: typeof ExampleChatRoute
@@ -354,6 +471,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRouteRoute: AuthRouteRouteWithChildren,
+  DashboardRouteRoute: DashboardRouteRouteWithChildren,
   DemoStoreRoute: DemoStoreRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   ExampleChatRoute: ExampleChatRoute,
@@ -378,6 +496,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_auth",
+        "/dashboard",
         "/demo/store",
         "/demo/tanstack-query",
         "/example/chat",
@@ -396,9 +515,30 @@ export const routeTree = rootRoute
     "/_auth": {
       "filePath": "_auth/route.tsx",
       "children": [
+        "/_auth/change-password",
+        "/_auth/confirm-email",
+        "/_auth/forgot-password",
         "/_auth/signin",
         "/_auth/signup"
       ]
+    },
+    "/dashboard": {
+      "filePath": "dashboard/route.tsx",
+      "children": [
+        "/dashboard/"
+      ]
+    },
+    "/_auth/change-password": {
+      "filePath": "_auth/change-password.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/confirm-email": {
+      "filePath": "_auth/confirm-email.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/forgot-password": {
+      "filePath": "_auth/forgot-password.tsx",
+      "parent": "/_auth"
     },
     "/_auth/signin": {
       "filePath": "_auth/signin.tsx",
@@ -416,6 +556,10 @@ export const routeTree = rootRoute
     },
     "/example/chat": {
       "filePath": "example/chat.tsx"
+    },
+    "/dashboard/": {
+      "filePath": "dashboard/index.tsx",
+      "parent": "/dashboard"
     },
     "/demo/entry/testing": {
       "filePath": "demo/entry.testing.tsx"
