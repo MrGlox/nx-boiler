@@ -326,7 +326,9 @@
 		"set": "ensemble"
 	},
 	"codes": {
-		"EMAIL_NOT_VERIFIED": "Please verify your email address",
+		"UNKNOWN_ERROR": "Une erreur inconnue est survenue",
+		"RESET_PASSWORD_ISNT_ENABLED": "Le mot de passe ne peut pas être réinitialisé",
+		"EMAIL_NOT_VERIFIED": "Veuillez vérifier votre adresse e-mail",
 		"INVALID_EMAIL_OR_PASSWORD": "Email ou mot de passe invalide"
 	}
 }

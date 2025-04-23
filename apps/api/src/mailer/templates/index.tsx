@@ -1,4 +1,4 @@
-import type { JSX } from 'react';
+import React from 'react';
 
 import { ConfirmEmail } from './confirm-email';
 import { ForgotPassword } from './forgot-password';
@@ -10,7 +10,7 @@ export type TemplateType =
   | 'password-changed';
 
 export const Templates: {
-  [key in TemplateType]: (...args: Record<string, unknown>[]) => JSX.Element;
+  [key in TemplateType]: (...args: any[]) => React.JSX.Element;
 } = {
   'confirm-email': (props) => <ConfirmEmail {...props} />,
   'forgot-password': (props) => <ForgotPassword {...props} />,

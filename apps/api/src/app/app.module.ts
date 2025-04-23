@@ -19,6 +19,7 @@ import { SchedulerModule } from "../core/scheduler/scheduler.module";
 
 import { AuthModule } from "../auth/auth.module";
 import { NotificationModule } from "../notification/notification.module";
+import { MailerModule } from "../mailer/mailer.module";
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { NotificationModule } from "../notification/notification.module";
     DatabaseModule,
     AuthModule,
     EventModule,
+    MailerModule,
     NotificationModule,
     SchedulerModule,
   ],

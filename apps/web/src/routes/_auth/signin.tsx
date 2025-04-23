@@ -76,7 +76,7 @@ function RouteComponent() {
           // }
 
           // display the error message
-          setError(error?.["code"] || "An unknown error occurred");
+          setError(error?.["code"] || "UNKNOWN_ERROR");
         },
       });
     },

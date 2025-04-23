@@ -1,10 +1,22 @@
 import { betterAuth } from "better-auth";
-import { bearer, openAPI } from "better-auth/plugins";
+import { admin, bearer, openAPI } from "better-auth/plugins";
 import { prismaAdapter } from "better-auth/adapters/prisma";
+import { ConfigService } from "@nestjs/config";
+import { I18nService } from "nestjs-i18n";
 
 import { PrismaClient } from "@repo/database";
+import { MailerService } from "../../mailer/mailer.service";
+import { AllConfigType } from "../../core/config/config.type";
+import { AuthService } from "../auth.service";
 
 const db = new PrismaClient();
+const configService = new ConfigService<AllConfigType>();
+const i18nService = new I18nService();
+let mailerService: MailerService;
+
+export const setMailerService = (service: MailerService) => {
+  mailerService = service;
+};
 
 export const auth = betterAuth({
   baseURL: `${process.env["APP_DOMAIN"]}/api/auth`,
@@ -33,6 +45,19 @@ export const auth = betterAuth({
     autoSignIn: false,
     emailVerified: false,
     requireEmailVerification: true,
+    sendResetPassword: async ({ user, url, token }, request) => {
+      if (!mailerService) {
+        throw new Error("MailerService not initialized");
+      }
+      await mailerService.sendMail({
+        to: user.email,
+        template: "forgot-password",
+        data: {
+          url,
+          formattedDate: new Date().toLocaleString(),
+        },
+      });
+    },
     // async onBeforeCreateUser(data) {
     //   // Ensure required fields are set
     //   return {
@@ -55,6 +80,10 @@ export const auth = betterAuth({
     },
   },
   plugins: [
+    admin({
+      // defaultRole: "regular",
+      adminRoles: ["admin", "super-admin"],
+    }),
     bearer(),
     openAPI({
       enabled: true,

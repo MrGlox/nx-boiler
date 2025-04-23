@@ -409,6 +409,8 @@
 		"set": "set"
 	},
 	"codes": {
+		"UNKNOWN_ERROR": "An unknown error occurred",
+		"RESET_PASSWORD_ISNT_ENABLED": "Reset password is not enabled",
 		"EMAIL_NOT_VERIFIED": "Please verify your email address",
 		"INVALID_EMAIL_OR_PASSWORD": "Invalid email or password"
 	}

@@ -1,11 +1,19 @@
-import { Module } from "@nestjs/common";
+import { Module, OnModuleInit } from "@nestjs/common";
 import { AuthModule as BetterAuthModule } from "better-auth/nestjs";
+import { MailerModule } from "../mailer/mailer.module";
+import { MailerService } from "../mailer/mailer.service";
 
-import { auth } from "./config/auth.config";
+import { auth, setMailerService } from "./config/auth.config";
 
 @Module({
-  imports: [BetterAuthModule.forRoot(auth)],
+  imports: [BetterAuthModule.forRoot(auth), MailerModule],
   providers: [],
   exports: [BetterAuthModule],
 })
-export class AuthModule {}
+export class AuthModule implements OnModuleInit {
+  constructor(private readonly mailerService: MailerService) {}
+
+  onModuleInit() {
+    setMailerService(this.mailerService);
+  }
+}

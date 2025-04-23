@@ -10,9 +10,9 @@ import {
   Min,
 } from 'class-validator';
 
-import { validateConfig } from '@repo/shared/utils';
+import validateConfig from '../../core/utils/validate-config';
 
-import type { MailerConfig } from './mailer-config.type';
+import { MailerConfig } from './mailer-config.type';
 
 class EnvironmentVariablesValidator {
   @IsString()
@@ -55,18 +55,17 @@ export default registerAs<MailerConfig>('mailer', () => {
   validateConfig(process.env, EnvironmentVariablesValidator);
 
   return {
-
-    port: process.env['MAIL_PORT']
-      ? Number.parseInt(process.env['MAIL_PORT'], 10)
+    port: process.env.MAIL_PORT
+      ? Number.parseInt(process.env.MAIL_PORT, 10)
       : 587,
-    host: process.env['MAIL_HOST'],
-    user: process.env['MAIL_USER'],
-    domain: process.env['APP_DOMAIN'],
-    password: process.env['MAIL_PASSWORD'],
-    defaultEmail: process.env['MAIL_DEFAULT_EMAIL'],
-    defaultName: process.env['MAIL_DEFAULT_NAME'],
-    ignoreTLS: process.env['MAIL_IGNORE_TLS'] === 'true',
-    secure: process.env['MAIL_SECURE'] === 'true',
-    requireTLS: process.env['MAIL_REQUIRE_TLS'] === 'true',
+    host: process.env.MAIL_HOST,
+    user: process.env.MAIL_USER,
+    domain: process.env.APP_DOMAIN,
+    password: process.env.MAIL_PASSWORD,
+    defaultEmail: process.env.MAIL_DEFAULT_EMAIL,
+    defaultName: process.env.MAIL_DEFAULT_NAME,
+    ignoreTLS: process.env.MAIL_IGNORE_TLS === 'true',
+    secure: process.env.MAIL_SECURE === 'true',
+    requireTLS: process.env.MAIL_REQUIRE_TLS === 'true',
   };
 });

@@ -22,14 +22,15 @@ export const userSchema = z.object({
 export type User = z.infer<typeof userSchema>;
 
 // Create the auth client
-export const { signIn, signUp, useSession, resetPassword } = createAuthClient({
-  baseURL: import.meta.env["VITE_API_URL"] || "http://localhost:4200",
-  user: {
-    additionalFields: {
-      name: false,
+export const { forgetPassword, resetPassword, signIn, signUp, useSession } =
+  createAuthClient({
+    baseURL: import.meta.env["VITE_API_URL"] || "http://localhost:4200",
+    user: {
+      additionalFields: {
+        name: false,
+      },
     },
-  },
-});
+  });
 
 // Function to get the current user
 export async function getCurrentUser(): Promise<User | null> {

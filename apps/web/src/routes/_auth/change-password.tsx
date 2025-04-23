@@ -91,7 +91,7 @@ function ChangePasswordPage() {
             });
           },
           onError: ({ error }) => {
-            setError(error?.["code"] || "An unknown error occurred");
+            setError(error?.["code"] || "UNKNOWN_ERROR");
           },
         },
       );

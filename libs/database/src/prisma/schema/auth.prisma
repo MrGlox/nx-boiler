@@ -24,6 +24,10 @@ model User {
   sessions Session[]
   role     Role      @default(USER)
 
+  banned       Boolean   @default(false)
+  banReason    String?
+  banExpiresAt DateTime?
+
   profile Profile?
   address Address?
 
