@@ -3,11 +3,10 @@ import { AuthModule as BetterAuthModule } from "better-auth/nestjs";
 import { MailerModule } from "../mailer/mailer.module";
 import { MailerService } from "../mailer/mailer.service";
 
-import { auth, setMailerService } from "./config/auth.config";
+import { auth, setMailerService } from "./config/better-auth.config";
 
 @Module({
   imports: [BetterAuthModule.forRoot(auth), MailerModule],
-  providers: [],
   exports: [BetterAuthModule],
 })
 export class AuthModule implements OnModuleInit {

@@ -6,7 +6,8 @@
 				"noStaticOnlyClass": "off"
 			},
 			"correctness": {
-				"noChildrenProp": "off"
+				"noChildrenProp": "off",
+				"useExhaustiveDependencies": "off"
 			},
 			"style": {
 				"useImportType": "off"

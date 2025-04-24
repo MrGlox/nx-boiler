@@ -1,9 +1,5 @@
-import { useCallback, useState } from "react";
-import {
-  createFileRoute,
-  useNavigate,
-  useSearch,
-} from "@tanstack/react-router";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { z } from "zod";
 
 import { m } from "@repo/dictionaries/messages";
@@ -21,32 +17,36 @@ import { Link } from "@/components/atoms/link";
 import { sessionToken, resetPassword, useSession } from "@/lib/auth";
 import { Divider } from "@/components/atoms/divider";
 
-const searchSchema = z.object({
-  token: z.string(),
-});
-
 export const Route = createFileRoute("/_auth/change-password")({
   component: ChangePasswordPage,
-  validateSearch: searchSchema,
-  loader: async () => {
+  validateSearch: (search) =>
+    search as {
+      token: string;
+    },
+  loaderDeps: ({ search: { token } }) => ({
+    token,
+  }),
+  loader: async ({ deps: { token } }) => {
     if (sessionToken()) {
-      return {
-        redirect: "/dashboard",
-      };
+      redirect({
+        to: "/dashboard",
+      });
     }
 
-    return null;
+    return {
+      token,
+    };
   },
 });
 
 const FormSchema = z.object({
   password: z.string().min(8),
+  token: z.string(),
 });
 
 function ChangePasswordPage() {
   const navigate = useNavigate();
   const { data: session } = useSession();
-  const { token } = useSearch({ strict: false });
 
   if (session) {
     navigate({
@@ -54,14 +54,20 @@ function ChangePasswordPage() {
     });
   }
 
-  const [error, setError] = useState<string | null>(null);
-  console.log("token", token);
+  const { token } = Route.useLoaderData();
+  const persistedToken = useRef<string | undefined>(token);
 
-  if (!token) {
+  console.log("token", token, persistedToken);
+
+  useEffect(() => {
     navigate({
-      to: "/forgot-password",
+      to: "/change-password",
+      replace: true,
+      search: {} as any,
     });
-  }
+  }, []);
+
+  const [error, setError] = useState<string | null>(null);
 
   const form = useAppForm({
     validators: {
@@ -69,6 +75,7 @@ function ChangePasswordPage() {
     },
     defaultValues: {
       password: "",
+      token: token || "",
     },
   });
 
@@ -82,7 +89,7 @@ function ChangePasswordPage() {
       await resetPassword(
         {
           newPassword: form.state.values.password,
-          token: token || "",
+          token: persistedToken.current,
         },
         {
           onSuccess: () => {

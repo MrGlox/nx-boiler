@@ -54,13 +54,13 @@ function RouteComponent() {
   });
 
   const handleSubmit = useCallback(
-    (ev: React.FormEvent) => {
+    async (ev: React.FormEvent) => {
       ev.preventDefault();
       ev.stopPropagation();
 
-      void form.handleSubmit();
+      await form.handleSubmit();
 
-      signUp.email(
+      await signUp.email(
         {
           ...form.state.values,
           name: "", // nullable just for type

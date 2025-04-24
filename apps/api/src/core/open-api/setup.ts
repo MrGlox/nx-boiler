@@ -9,10 +9,9 @@ export async function setupApiDocumentation(
   app: INestApplication,
   auth: any,
   globalPrefix: string,
-  port: number,
 ) {
   // Create OpenAPI config
-  const config = createOpenApiConfig(port);
+  const config = createOpenApiConfig();
 
   // Generate base OpenAPI document
   const mainDocument = SwaggerModule.createDocument(app, config);

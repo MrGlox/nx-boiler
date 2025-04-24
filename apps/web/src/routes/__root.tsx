@@ -24,7 +24,7 @@ import type { TRPCRouter } from "@/integrations/trpc/router";
 interface RouterContext {
   queryClient: QueryClient;
   trpc: TRPCOptionsProxy<TRPCRouter>;
-  user: {};
+  // user: {};
 }
 
 export const Route = createRootRouteWithContext<RouterContext>()({
@@ -39,9 +39,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       },
       ...seo({
         title:
-          "TanStack Start | Type-Safe, Client-First, Full-Stack React Framework",
+          "NX Boilerplate | Type-Safe, Client-First, Full-Stack React Framework",
         description:
-          "TanStack Start is a type-safe, client-first, full-stack React framework.",
+          "NX Boilerplate is a type-safe, client-first, full-stack React framework.",
       }),
     ],
     links: [
@@ -66,7 +66,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
         sizes: "16x16",
         href: "/favicon-16x16.png",
       },
-      { rel: "manifest", href: "/site.webmanifest", color: "#fffff" },
+      { rel: "manifest", href: "/site.webmanifest", color: "#ffffff" },
       { rel: "icon", href: "/favicon.ico" },
     ],
   }),

@@ -21,5 +21,15 @@ services:
       - ./cache:/data
       # - /dev/volumes/nestjs-remix/dev/sessions/:/data
 
+  maildev:
+    env_file:
+      - ../../.env
+    build:
+      context: .
+      dockerfile: maildev.Dockerfile
+    ports:
+      - "${MAIL_CLIENT_PORT:-1080}:1080"
+      - "${MAIL_PORT:-1025}:1025"
+
 volumes:
   db-data:

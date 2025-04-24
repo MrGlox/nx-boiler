@@ -126,7 +126,6 @@
 		"react-dom": "^19.1.0",
 		"react-email": "^4.0.7",
 		"react-hook-form": "^7.55.0",
-		"react-i18next": "^15.4.1",
 		"react-markdown": "^10.1.0",
 		"redaxios": "^0.5.1",
 		"reflect-metadata": "^0.2.2",

@@ -15,7 +15,7 @@ import { createRouter } from "./router";
 export default defineEventHandler((event) =>
   paraglideMiddleware(getWebRequest(event), async () =>
     createStartHandler({
-      createRouter: () => createRouter(), //event.path
+      createRouter, //event.path
       getRouterManifest,
     })(defaultStreamHandler)(event),
   ),

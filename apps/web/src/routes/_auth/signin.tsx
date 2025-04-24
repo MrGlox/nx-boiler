@@ -168,18 +168,23 @@ function RouteComponent() {
               </field.FormItem>
             )}
           />
-          <form.Subscribe
-            selector={(state) =>
-              (state.isValid && !state.isPristine) || !state.isSubmitting
-            }
-            children={(canSubmit) => (
-              <div className="flex flex-row-reverse justify-between items-center">
-                <Button type="submit" disabled={!canSubmit}>
-                  {!canSubmit ? "..." : m["auth.signin.action"]()}
-                </Button>
-              </div>
-            )}
-          />
+          <div className="flex flex-row-reverse justify-between items-center">
+            <form.Subscribe
+              selector={(state) =>
+                (state.isValid && !state.isPristine) || !state.isSubmitting
+              }
+              children={(canSubmit) => (
+                <div className="flex flex-row-reverse justify-between items-center">
+                  <Button type="submit" disabled={!canSubmit}>
+                    {!canSubmit ? "..." : m["auth.signin.action"]()}
+                  </Button>
+                </div>
+              )}
+            />
+            <Link to="/forgot-password" className="text-sm">
+              {m["auth.forgot.title"]()}
+            </Link>
+          </div>
         </form>
       </main>
       <footer>

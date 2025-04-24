@@ -62,9 +62,7 @@ function ForgotPasswordPage() {
 
       await form.handleSubmit();
 
-      if (!form.state.canSubmit) return;
-
-      forgetPassword(form.state.values, {
+      await forgetPassword(form.state.values, {
         onSuccess: (ctx) => {
           console.log("onSuccess", ctx);
           setSuccess("success");

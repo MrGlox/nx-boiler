@@ -15,7 +15,7 @@ import * as winston from "winston";
 // import Redis from "ioredis";
 
 import { AppModule } from "./app/app.module";
-import { auth } from "./auth/config/auth.config";
+import { auth } from "./auth/config/better-auth.config";
 import { setupApiDocumentation } from "./core/open-api";
 // import { HttpExceptionFilter } from "./core/exception.filter";
 
@@ -90,7 +90,7 @@ async function bootstrap() {
   // });
 
   // Set up API documentation
-  await setupApiDocumentation(app, auth, globalPrefix, port);
+  await setupApiDocumentation(app, auth, globalPrefix);
 
   app.set("trust proxy", 1);
 

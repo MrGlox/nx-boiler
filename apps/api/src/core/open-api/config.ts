@@ -1,21 +1,17 @@
 import { DocumentBuilder } from "@nestjs/swagger";
 
-export function createOpenApiConfig(port: number) {
+export function createOpenApiConfig() {
   return new DocumentBuilder()
     .setTitle("API Documentation")
     .setDescription("The API description")
     .setVersion("0.0.1")
-    .addBearerAuth(
-      {
-        type: "http",
-        scheme: "bearer",
-        bearerFormat: "JWT",
-        name: "Authorization",
-        description: "Enter JWT token",
-        in: "header",
-      },
-      "access-token",
+    .addBasicAuth()
+    .addBearerAuth()
+    .addServer(
+      process.env.API_URL,
+      process.env.NODE_ENV === "development"
+        ? "Local environment"
+        : "Production environment",
     )
-    .addServer(`http://localhost:${port}`, "Local environment")
     .build();
 }

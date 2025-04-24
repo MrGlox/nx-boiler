@@ -1,8 +1,10 @@
 import path from "node:path";
 
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "@tanstack/react-start/config";
 import tailwindcss from "@tailwindcss/vite";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import tsConfigPaths from "vite-tsconfig-paths";
@@ -10,6 +12,11 @@ import tsConfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   tsr: {
     appDirectory: "apps/web/src",
+  },
+  routers: {
+    public: {
+      dir: "apps/web/public",
+    },
   },
   vite: {
     cacheDir: "../../node_modules/.vite/apps/web",
@@ -25,16 +32,27 @@ export default defineConfig({
       },
     },
     plugins: [
+      nxViteTsPaths(),
+      tsConfigPaths({
+        projects: ["./tsconfig.json"],
+      }),
+      TanStackRouterVite({
+        target: "react",
+        routeToken: "layout",
+        autoCodeSplitting: true,
+      }),
+      // {
+      // target: "react",
+      // autoCodeSplitting: true,
+      // routesDirectory: path.resolve("apps/web/src/routes"),
+      // generatedRouteTree: path.resolve("apps/web/src/routeTree.gen.ts"),
+      // }
       paraglideVitePlugin({
         project: path.resolve("libs/shared/dictionaries/project.inlang"),
         outdir: path.resolve("libs/shared/dictionaries/src/paraglide"),
         cookieName: "locale",
       }),
       tailwindcss(),
-      nxViteTsPaths(),
-      tsConfigPaths({
-        projects: ["./tsconfig.json"],
-      }),
     ],
     build: {
       outDir: "../../dist/apps/web",

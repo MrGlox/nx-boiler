@@ -13,7 +13,9 @@ import {
 
 import { DatabaseModule } from "@repo/database";
 
-import appConfig from "../core/config/app.config";
+import appConfig from "../app/config/app.config";
+import mailerConfig from "../mailer/config/mailer.config";
+
 import { EventModule } from "../core/event/event.module";
 import { SchedulerModule } from "../core/scheduler/scheduler.module";
 
@@ -25,7 +27,7 @@ import { MailerModule } from "../mailer/mailer.module";
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig],
+      load: [appConfig, mailerConfig],
     }),
     I18nModule.forRootAsync({
       imports: [ConfigModule],
