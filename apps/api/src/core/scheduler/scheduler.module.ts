@@ -1,10 +1,10 @@
-import { Logger, Module } from '@nestjs/common';
-import { ScheduleModule } from '@nestjs/schedule';
+import { Logger, Module } from "@nestjs/common";
+import { ScheduleModule } from "@nestjs/schedule";
 
-import { DatabaseModule } from '@repo/database';
+import { DatabaseModule } from "../database/database.module";
 
 // import { PaymentModule } from '../../payment/payment.module';
-import { SchedulerService } from './scheduler.service';
+import { SchedulerService } from "./scheduler.service";
 
 @Module({
   imports: [

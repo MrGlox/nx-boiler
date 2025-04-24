@@ -3,7 +3,7 @@
 // import { TerminusModule } from "@nestjs/terminus";
 
 // import { PrismaHealthIndicator } from "../database/prisma.health";
-// import { DatabaseService } from "@repo/database";
+// import { DatabaseService } from "../database/database.service";
 
 // import { HealthController } from "./health.controller";
 

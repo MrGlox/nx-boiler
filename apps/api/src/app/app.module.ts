@@ -11,11 +11,10 @@ import {
   QueryResolver,
 } from "nestjs-i18n";
 
-import { DatabaseModule } from "@repo/database";
-
 import appConfig from "../app/config/app.config";
 import mailerConfig from "../mailer/config/mailer.config";
 
+import { DatabaseModule } from "../core/database/database.module";
 import { EventModule } from "../core/event/event.module";
 import { SchedulerModule } from "../core/scheduler/scheduler.module";
 

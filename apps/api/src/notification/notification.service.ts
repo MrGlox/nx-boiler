@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { EventEmitter2 } from "@nestjs/event-emitter";
 import { Notification, Session, User } from "@repo/database";
 
-import { DatabaseService } from "@repo/database";
+import { DatabaseService } from "../core/database/database.service";
 
 @Injectable()
 export class NotificationService {

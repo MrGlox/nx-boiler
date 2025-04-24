@@ -2,9 +2,9 @@ import {
   Injectable,
   type OnModuleInit,
   type OnModuleDestroy,
-} from '@nestjs/common';
+} from "@nestjs/common";
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "@repo/database";
 
 @Injectable()
 export class DatabaseService
