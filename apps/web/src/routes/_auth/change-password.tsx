@@ -14,7 +14,7 @@ import {
 import { cn } from "@repo/utils";
 
 import { Link } from "@/components/atoms/link";
-import { sessionToken, resetPassword, useSession } from "@/lib/auth";
+import { resetPassword, useSession } from "@/lib/auth";
 import { Divider } from "@/components/atoms/divider";
 
 export const Route = createFileRoute("/_auth/change-password")({
@@ -27,12 +27,6 @@ export const Route = createFileRoute("/_auth/change-password")({
     token,
   }),
   loader: async ({ deps: { token } }) => {
-    if (sessionToken()) {
-      redirect({
-        to: "/dashboard",
-      });
-    }
-
     return {
       token,
     };

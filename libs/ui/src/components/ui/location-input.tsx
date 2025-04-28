@@ -1,6 +1,6 @@
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from './button';
+import { Check, ChevronsUpDown } from "lucide-react";
+import { useState } from "react";
+import { Button } from "./button";
 import {
   Command,
   CommandEmpty,
@@ -8,18 +8,18 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from './command';
-import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { ScrollArea, ScrollBar } from './scroll-area';
+} from "./command";
+import { Popover, PopoverContent, PopoverTrigger } from "./popover";
+import { ScrollArea, ScrollBar } from "./scroll-area";
 
-import { cn } from '@repo/utils';
+import { cn } from "@repo/utils";
 
 // import { FieldError } from 'react-hook-form';
 // Import JSON data directly
-import countries from '../../data/countries.json';
-import states from '../../data/states.json';
+import countries from "../../data/countries.json";
+import states from "../../data/states.json";
 
-interface Timezone {
+export interface Timezone {
   zoneName: string;
   gmtOffset: number;
   gmtOffsetName: string;
@@ -27,7 +27,7 @@ interface Timezone {
   tzName: string;
 }
 
-interface CountryProps {
+export interface CountryProps {
   id: number;
   name: string;
   iso3: string;
@@ -53,7 +53,7 @@ interface CountryProps {
   emojiU: string;
 }
 
-interface StateProps {
+export interface StateProps {
   id: number;
   name: string;
   country_id: number;
@@ -65,7 +65,7 @@ interface StateProps {
   longitude: string;
 }
 
-interface LocationSelectorProps {
+export interface LocationSelectorProps {
   disabled?: boolean;
   // error?: FieldError;
   defaultValue?: string[];
@@ -73,7 +73,7 @@ interface LocationSelectorProps {
   onStateChange?: (state: StateProps | null) => void;
 }
 
-const LocationSelector = ({
+export const LocationSelector = ({
   disabled,
   onCountryChange,
   onStateChange,
@@ -131,8 +131,8 @@ const LocationSelector = ({
             aria-expanded={openCountryDropdown}
             disabled={disabled}
             className={cn(
-              'w-full justify-between',
-              error && 'border-destructive border-2',
+              "w-full justify-between",
+              error && "border-destructive border-2",
             )}
           >
             {selectedCountry ? (
@@ -169,10 +169,10 @@ const LocationSelector = ({
                       </div>
                       <Check
                         className={cn(
-                          'h-4 w-4',
+                          "h-4 w-4",
                           selectedCountry?.id === country.id
-                            ? 'opacity-100'
-                            : 'opacity-0',
+                            ? "opacity-100"
+                            : "opacity-0",
                         )}
                       />
                     </CommandItem>
@@ -224,10 +224,10 @@ const LocationSelector = ({
                         <span>{state.name}</span>
                         <Check
                           className={cn(
-                            'h-4 w-4',
+                            "h-4 w-4",
                             selectedState?.id === state.id
-                              ? 'opacity-100'
-                              : 'opacity-0',
+                              ? "opacity-100"
+                              : "opacity-0",
                           )}
                         />
                       </CommandItem>
@@ -243,5 +243,3 @@ const LocationSelector = ({
     </div>
   );
 };
-
-export default LocationSelector;

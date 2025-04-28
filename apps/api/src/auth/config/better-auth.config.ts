@@ -45,7 +45,7 @@ export const auth = betterAuth({
     autoSignIn: false,
     minPasswordLength: 8,
     maxPasswordLength: 128,
-    requireEmailVerification: true,
+    // requireEmailVerification: true,
     sendResetPassword: async ({ user, token }) => {
       if (!mailerService) {
         throw new Error("MailerService not initialized");
@@ -62,12 +62,11 @@ export const auth = betterAuth({
     },
   },
   emailVerification: {
+    enabled: true,
     sendVerificationEmail: async ({ user, token }) => {
       if (!mailerService) {
         throw new Error("MailerService not initialized");
       }
-
-      console.log("sendVerificationEmail");
 
       await mailerService.sendMail({
         to: user.email,
@@ -79,7 +78,6 @@ export const auth = betterAuth({
       });
     },
     sendOnSignUp: true,
-    autoSignInAfterVerification: true,
     expiresIn: 3600,
   },
   socialProviders: {

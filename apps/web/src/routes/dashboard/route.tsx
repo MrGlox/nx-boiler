@@ -1,10 +1,22 @@
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+
 import { DashboardFooter } from "@/containers/dashboard/footer";
 import { DashboardHeader } from "@/containers/dashboard/header";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
-// import { useMemo } from "react";
+import { getSession } from "@/lib/auth";
 
 export const Route = createFileRoute("/dashboard")({
   component: RouteComponent,
+  beforeLoad: async () => {
+    const sessionData = await getSession();
+
+    if (!sessionData?.session) {
+      return redirect({
+        to: "/signin",
+      });
+    }
+
+    return null;
+  },
 });
 
 function RouteComponent() {
@@ -26,12 +38,8 @@ function RouteComponent() {
 
   return (
     <>
-      <DashboardHeader
-      // {...{
-      //   notifications,
-      // }}
-      />
-      <main className="flex flex-col min-h-[calc(100vh-64px)] py-10">
+      <DashboardHeader />
+      <main className="flex flex-col min-h-[calc(100vh-64px)] pt-4 pb-10">
         <Outlet />
       </main>
       <DashboardFooter />

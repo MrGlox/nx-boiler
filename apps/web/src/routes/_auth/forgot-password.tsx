@@ -13,7 +13,7 @@ import {
 } from "@repo/ui";
 import { cn } from "@repo/utils";
 
-import { forgetPassword, sessionToken, useSession } from "@/lib/auth";
+import { forgetPassword, useSession } from "@/lib/auth";
 import { Divider } from "@/components/atoms/divider";
 
 const FormSchema = z.object({
@@ -22,29 +22,13 @@ const FormSchema = z.object({
 
 export const Route = createFileRoute("/_auth/forgot-password")({
   component: ForgotPasswordPage,
-  loader: async () => {
-    if (sessionToken()) {
-      return redirect({
-        to: "/dashboard",
-      });
-    }
-
-    return null;
-  },
 });
 
 function ForgotPasswordPage() {
   const navigate = useNavigate();
-  const { data: session } = useSession();
 
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
-  if (session) {
-    navigate({
-      to: "/dashboard",
-    });
-  }
 
   const form = useAppForm({
     validators: {

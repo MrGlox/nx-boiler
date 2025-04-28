@@ -7,7 +7,7 @@ import { Button } from "@repo/ui";
 
 export const ShowcaseHeader = ({ isAuth }: { isAuth: boolean }) => {
   return (
-    <header className="border-b sticky z-50 top-0 w-full">
+    <header className="border-b border-input sticky z-50 top-0 w-full">
       <Container
         size="large"
         className="flex h-16 items-center px-4 justify-between"

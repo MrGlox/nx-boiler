@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import React from "react";
 
-import { Button } from '../button';
-import { cn } from '@repo/utils';
-import type { StepSharedProps } from './types';
-import { useStepper } from './use_stepper';
+import { Button } from "../button";
+import { cn } from "@repo/utils";
+import type { StepSharedProps } from "./types";
+import { useStepper } from "./use_stepper";
 
 type StepButtonContainerProps = StepSharedProps & {
-  children?: ReactNode;
+  children?: React.ReactNode;
 };
 
 const StepButtonContainer = ({
@@ -28,7 +28,7 @@ const StepButtonContainer = ({
 
   const isLoading = isLoadingProp || isLoadingContext;
 
-  if (variant === 'line') {
+  if (variant === "line") {
     return null;
   }
 
@@ -38,17 +38,17 @@ const StepButtonContainer = ({
       type="button"
       tabIndex={currentStepClickable ? 0 : -1}
       className={cn(
-        'stepper__step-button-container',
-        'rounded-full p-0 pointer-events-none',
-        'w-[var(--step-icon-size)] h-[var(--step-icon-size)]',
-        'border-2 flex rounded-full justify-center items-center',
-        'data-[clickable=true]:pointer-events-auto',
-        'data-[active=true]:bg-primary data-[active=true]:border-primary data-[active=true]:text-primary-foreground',
-        'data-[current=true]:border-primary data-[current=true]:bg-muted',
-        'data-[invalid=true]:bg-destructive data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive-foreground',
-        styles?.['step-button-container'],
+        "stepper__step-button-container",
+        "rounded-full p-0 pointer-events-none",
+        "w-[var(--step-icon-size)] h-[var(--step-icon-size)]",
+        "border-2 flex rounded-full justify-center items-center",
+        "data-[clickable=true]:pointer-events-auto",
+        "data-[active=true]:bg-primary data-[active=true]:border-primary data-[active=true]:text-primary-foreground",
+        "data-[current=true]:border-primary data-[current=true]:bg-muted",
+        "data-[invalid=true]:bg-destructive data-[invalid=true]:border-destructive data-[invalid=true]:text-destructive-foreground",
+        styles?.["step-button-container"],
       )}
-      aria-current={isCurrentStep ? 'step' : undefined}
+      aria-current={isCurrentStep ? "step" : undefined}
       data-current={isCurrentStep}
       data-invalid={isError && (isCurrentStep || isCompletedStep)}
       data-active={isCompletedStep}

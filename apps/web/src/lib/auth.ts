@@ -1,6 +1,8 @@
-import type { Nullable } from "@tanstack/react-form";
-import { getWebRequest } from "@tanstack/react-start/server";
+import { createServerFn } from "@tanstack/react-start";
+import { getHeaders } from "@tanstack/react-start/server";
+
 import { createAuthClient } from "better-auth/react";
+import type { Session, User } from "better-auth/types";
 import { z } from "zod";
 
 // import { MeDto } from "@repo/dto";
@@ -19,18 +21,30 @@ export const userSchema = z.object({
   updatedAt: z.date(),
 });
 
-export type User = z.infer<typeof userSchema>;
+// export type User = z.infer<typeof userSchema>;
 
 // Create the auth client
-export const { forgetPassword, resetPassword, signIn, signUp, useSession } =
-  createAuthClient({
-    baseURL: import.meta.env["VITE_API_URL"] || "http://localhost:4200",
-    user: {
-      additionalFields: {
-        name: false,
-      },
+export const {
+  forgetPassword,
+  resetPassword,
+  signIn,
+  signUp,
+  useSession,
+  verifyEmail,
+  signOut,
+  getSession: getBetterAuthSession,
+} = createAuthClient({
+  baseURL: import.meta.env["VITE_API_URL"] || "http://localhost:4200",
+  user: {
+    additionalFields: {
+      name: false,
     },
-  });
+  },
+  emailVerification: {
+    enabled: true,
+    redirect: "/signin",
+  },
+});
 
 // Function to get the current user
 export async function getCurrentUser(): Promise<User | null> {
@@ -63,40 +77,26 @@ export function isAuthenticated(): boolean {
   return session?.data !== null;
 }
 
-export function sessionToken(): string | null | undefined {
-  // Check if we're in a server context
-  if (typeof window === "undefined") {
-    try {
-      const request = getWebRequest();
+export const getSession = createServerFn().handler(
+  async (): Promise<{
+    session: Session | null;
+    user: User | null;
+    error: any;
+  } | null> => {
+    const headers = getHeaders();
 
-      if (request) {
-        const cookies = request.headers.get("cookie") || "";
-        const cookieMatch = cookies.match(/auth_session=([^;]+)/);
-        return cookieMatch ? cookieMatch[1] : null;
-      }
-    } catch (error) {
-      console.error("Error getting session token from server request:", error);
+    if (!headers) {
+      return null;
     }
 
-    return null;
-  }
+    const { data, error } = await getBetterAuthSession({
+      fetchOptions: { headers: headers as HeadersInit },
+    });
 
-  // Client-side implementation
-  const cookies = document.cookie.split(";");
-  const sessionCookie = cookies.find((cookie) =>
-    cookie.trim().startsWith("auth_session="),
-  );
-  return sessionCookie?.split("=")[1].trim() ?? null;
-}
-
-export function getSessionToken(request?: Request): string | null {
-  if (typeof document !== "undefined") {
-    const cookies = document.cookie.split(";");
-    const sessionCookie = cookies.find((cookie) =>
-      cookie.trim().startsWith("auth_session="),
-    );
-    return sessionCookie?.split("=")[1].trim() ?? null;
-  }
-
-  return null;
-}
+    return {
+      session: data?.session as Session | null,
+      user: data?.user as User | null,
+      error,
+    };
+  },
+);

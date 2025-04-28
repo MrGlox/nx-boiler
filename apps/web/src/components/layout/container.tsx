@@ -1,9 +1,9 @@
-import { ReactNode } from "react";
+import React from "react";
 
 import { cn } from "@repo/utils";
 
 interface ContainerProps {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   size?: "default" | "large";
 }
@@ -33,7 +33,11 @@ export function Container({
   return (
     <div
       {...rest}
-      className={cn("container w-full px-4", SizeVariants[size], className)}
+      className={cn(
+        "container w-full px-4 mx-auto",
+        SizeVariants[size],
+        className,
+      )}
     >
       {children}
     </div>

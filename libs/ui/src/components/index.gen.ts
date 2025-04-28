@@ -28,4 +28,5 @@ export * from "./ui/stepper";
 export * from "./ui/switch";
 export * from "./ui/tabs";
 export * from "./ui/button";
+export * from './ui/tooltip';
 export * from "./ui/textarea";

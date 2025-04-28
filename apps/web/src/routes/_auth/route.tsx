@@ -3,18 +3,34 @@ import {
   useLocation,
   Link,
   Outlet,
+  redirect,
+  useNavigate,
 } from "@tanstack/react-router";
+
 import { m } from "@repo/dictionaries/messages";
 // import { locales, setLocale, getLocale } from '@repo/dictionaries/runtime';
 import { cn } from "@repo/utils";
-import Brand from "@/components/atoms/brand";
 import { buttonVariants } from "@repo/ui";
+
+import Brand from "@/components/atoms/brand";
 // import { LazyImage } from '@/components/lazy-image';
 import { ShowcaseFooter } from "@/containers/showcase/footer";
 import { LanguageSwitcher } from "@/containers/language-switcher";
+import { getSession } from "@/lib/auth";
 
 export const Route = createFileRoute("/_auth")({
   component: RouteComponent,
+  loader: async () => {
+    const sessionData = await getSession();
+
+    if (sessionData?.session) {
+      return redirect({
+        to: "/dashboard",
+      });
+    }
+
+    return null;
+  },
 });
 
 function RouteComponent() {

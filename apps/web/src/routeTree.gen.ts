@@ -23,13 +23,24 @@ import { Route as AuthSigninImport } from './routes/_auth/signin'
 import { Route as AuthForgotPasswordImport } from './routes/_auth/forgot-password'
 import { Route as AuthConfirmEmailImport } from './routes/_auth/confirm-email'
 import { Route as AuthChangePasswordImport } from './routes/_auth/change-password'
+import { Route as DashboardAccountRouteImport } from './routes/dashboard/account/route'
 import { Route as ExampleGuitarsIndexImport } from './routes/example/guitars.index'
+import { Route as DashboardAccountIndexImport } from './routes/dashboard/account/index'
 import { Route as ExampleGuitarsGuitarIdImport } from './routes/example/guitars.$guitarId'
 import { Route as DemoStartServerFuncsImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestImport } from './routes/demo/start.api-request'
 import { Route as DemoFormSimpleImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressImport } from './routes/demo/form.address'
 import { Route as DemoEntryTestingImport } from './routes/demo/entry.testing'
+import { Route as DashboardAccountSettingsImport } from './routes/dashboard/account/settings'
+import { Route as DashboardAccountProfileImport } from './routes/dashboard/account/profile'
+import { Route as DashboardAccountBillingsImport } from './routes/dashboard/account/billings'
+import { Route as DashboardAccountAppearanceImport } from './routes/dashboard/account/appearance'
+import { Route as DashboardAccountSubscriptionRouteImport } from './routes/dashboard/account/subscription/route'
+import { Route as DashboardAccountSubscriptionIndexImport } from './routes/dashboard/account/subscription/index'
+import { Route as DashboardAccountSubscriptionPaymentRouteImport } from './routes/dashboard/account/subscription/payment/route'
+import { Route as DashboardAccountSubscriptionPaymentIndexImport } from './routes/dashboard/account/subscription/payment/index'
+import { Route as DashboardAccountSubscriptionPaymentSuccessImport } from './routes/dashboard/account/subscription/payment/success'
 
 // Create/Update Routes
 
@@ -104,10 +115,22 @@ const AuthChangePasswordRoute = AuthChangePasswordImport.update({
   getParentRoute: () => AuthRouteRoute,
 } as any)
 
+const DashboardAccountRouteRoute = DashboardAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+
 const ExampleGuitarsIndexRoute = ExampleGuitarsIndexImport.update({
   id: '/example/guitars/',
   path: '/example/guitars/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardAccountIndexRoute = DashboardAccountIndexImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardAccountRouteRoute,
 } as any)
 
 const ExampleGuitarsGuitarIdRoute = ExampleGuitarsGuitarIdImport.update({
@@ -146,6 +169,67 @@ const DemoEntryTestingRoute = DemoEntryTestingImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const DashboardAccountSettingsRoute = DashboardAccountSettingsImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => DashboardAccountRouteRoute,
+} as any)
+
+const DashboardAccountProfileRoute = DashboardAccountProfileImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => DashboardAccountRouteRoute,
+} as any)
+
+const DashboardAccountBillingsRoute = DashboardAccountBillingsImport.update({
+  id: '/billings',
+  path: '/billings',
+  getParentRoute: () => DashboardAccountRouteRoute,
+} as any)
+
+const DashboardAccountAppearanceRoute = DashboardAccountAppearanceImport.update(
+  {
+    id: '/appearance',
+    path: '/appearance',
+    getParentRoute: () => DashboardAccountRouteRoute,
+  } as any,
+)
+
+const DashboardAccountSubscriptionRouteRoute =
+  DashboardAccountSubscriptionRouteImport.update({
+    id: '/subscription',
+    path: '/subscription',
+    getParentRoute: () => DashboardAccountRouteRoute,
+  } as any)
+
+const DashboardAccountSubscriptionIndexRoute =
+  DashboardAccountSubscriptionIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => DashboardAccountSubscriptionRouteRoute,
+  } as any)
+
+const DashboardAccountSubscriptionPaymentRouteRoute =
+  DashboardAccountSubscriptionPaymentRouteImport.update({
+    id: '/payment',
+    path: '/payment',
+    getParentRoute: () => DashboardAccountSubscriptionRouteRoute,
+  } as any)
+
+const DashboardAccountSubscriptionPaymentIndexRoute =
+  DashboardAccountSubscriptionPaymentIndexImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => DashboardAccountSubscriptionPaymentRouteRoute,
+  } as any)
+
+const DashboardAccountSubscriptionPaymentSuccessRoute =
+  DashboardAccountSubscriptionPaymentSuccessImport.update({
+    id: '/success',
+    path: '/success',
+    getParentRoute: () => DashboardAccountSubscriptionPaymentRouteRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -170,6 +254,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRoute
+    }
+    '/dashboard/account': {
+      id: '/dashboard/account'
+      path: '/account'
+      fullPath: '/dashboard/account'
+      preLoaderRoute: typeof DashboardAccountRouteImport
+      parentRoute: typeof DashboardRouteImport
     }
     '/_auth/change-password': {
       id: '/_auth/change-password'
@@ -234,6 +325,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexImport
       parentRoute: typeof DashboardRouteImport
     }
+    '/dashboard/account/subscription': {
+      id: '/dashboard/account/subscription'
+      path: '/subscription'
+      fullPath: '/dashboard/account/subscription'
+      preLoaderRoute: typeof DashboardAccountSubscriptionRouteImport
+      parentRoute: typeof DashboardAccountRouteImport
+    }
+    '/dashboard/account/appearance': {
+      id: '/dashboard/account/appearance'
+      path: '/appearance'
+      fullPath: '/dashboard/account/appearance'
+      preLoaderRoute: typeof DashboardAccountAppearanceImport
+      parentRoute: typeof DashboardAccountRouteImport
+    }
+    '/dashboard/account/billings': {
+      id: '/dashboard/account/billings'
+      path: '/billings'
+      fullPath: '/dashboard/account/billings'
+      preLoaderRoute: typeof DashboardAccountBillingsImport
+      parentRoute: typeof DashboardAccountRouteImport
+    }
+    '/dashboard/account/profile': {
+      id: '/dashboard/account/profile'
+      path: '/profile'
+      fullPath: '/dashboard/account/profile'
+      preLoaderRoute: typeof DashboardAccountProfileImport
+      parentRoute: typeof DashboardAccountRouteImport
+    }
+    '/dashboard/account/settings': {
+      id: '/dashboard/account/settings'
+      path: '/settings'
+      fullPath: '/dashboard/account/settings'
+      preLoaderRoute: typeof DashboardAccountSettingsImport
+      parentRoute: typeof DashboardAccountRouteImport
+    }
     '/demo/entry/testing': {
       id: '/demo/entry/testing'
       path: '/demo/entry/testing'
@@ -276,12 +402,47 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExampleGuitarsGuitarIdImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard/account/': {
+      id: '/dashboard/account/'
+      path: '/'
+      fullPath: '/dashboard/account/'
+      preLoaderRoute: typeof DashboardAccountIndexImport
+      parentRoute: typeof DashboardAccountRouteImport
+    }
     '/example/guitars/': {
       id: '/example/guitars/'
       path: '/example/guitars'
       fullPath: '/example/guitars'
       preLoaderRoute: typeof ExampleGuitarsIndexImport
       parentRoute: typeof rootRoute
+    }
+    '/dashboard/account/subscription/payment': {
+      id: '/dashboard/account/subscription/payment'
+      path: '/payment'
+      fullPath: '/dashboard/account/subscription/payment'
+      preLoaderRoute: typeof DashboardAccountSubscriptionPaymentRouteImport
+      parentRoute: typeof DashboardAccountSubscriptionRouteImport
+    }
+    '/dashboard/account/subscription/': {
+      id: '/dashboard/account/subscription/'
+      path: '/'
+      fullPath: '/dashboard/account/subscription/'
+      preLoaderRoute: typeof DashboardAccountSubscriptionIndexImport
+      parentRoute: typeof DashboardAccountSubscriptionRouteImport
+    }
+    '/dashboard/account/subscription/payment/success': {
+      id: '/dashboard/account/subscription/payment/success'
+      path: '/success'
+      fullPath: '/dashboard/account/subscription/payment/success'
+      preLoaderRoute: typeof DashboardAccountSubscriptionPaymentSuccessImport
+      parentRoute: typeof DashboardAccountSubscriptionPaymentRouteImport
+    }
+    '/dashboard/account/subscription/payment/': {
+      id: '/dashboard/account/subscription/payment/'
+      path: '/'
+      fullPath: '/dashboard/account/subscription/payment/'
+      preLoaderRoute: typeof DashboardAccountSubscriptionPaymentIndexImport
+      parentRoute: typeof DashboardAccountSubscriptionPaymentRouteImport
     }
   }
 }
@@ -308,11 +469,73 @@ const AuthRouteRouteWithChildren = AuthRouteRoute._addFileChildren(
   AuthRouteRouteChildren,
 )
 
+interface DashboardAccountSubscriptionPaymentRouteRouteChildren {
+  DashboardAccountSubscriptionPaymentSuccessRoute: typeof DashboardAccountSubscriptionPaymentSuccessRoute
+  DashboardAccountSubscriptionPaymentIndexRoute: typeof DashboardAccountSubscriptionPaymentIndexRoute
+}
+
+const DashboardAccountSubscriptionPaymentRouteRouteChildren: DashboardAccountSubscriptionPaymentRouteRouteChildren =
+  {
+    DashboardAccountSubscriptionPaymentSuccessRoute:
+      DashboardAccountSubscriptionPaymentSuccessRoute,
+    DashboardAccountSubscriptionPaymentIndexRoute:
+      DashboardAccountSubscriptionPaymentIndexRoute,
+  }
+
+const DashboardAccountSubscriptionPaymentRouteRouteWithChildren =
+  DashboardAccountSubscriptionPaymentRouteRoute._addFileChildren(
+    DashboardAccountSubscriptionPaymentRouteRouteChildren,
+  )
+
+interface DashboardAccountSubscriptionRouteRouteChildren {
+  DashboardAccountSubscriptionPaymentRouteRoute: typeof DashboardAccountSubscriptionPaymentRouteRouteWithChildren
+  DashboardAccountSubscriptionIndexRoute: typeof DashboardAccountSubscriptionIndexRoute
+}
+
+const DashboardAccountSubscriptionRouteRouteChildren: DashboardAccountSubscriptionRouteRouteChildren =
+  {
+    DashboardAccountSubscriptionPaymentRouteRoute:
+      DashboardAccountSubscriptionPaymentRouteRouteWithChildren,
+    DashboardAccountSubscriptionIndexRoute:
+      DashboardAccountSubscriptionIndexRoute,
+  }
+
+const DashboardAccountSubscriptionRouteRouteWithChildren =
+  DashboardAccountSubscriptionRouteRoute._addFileChildren(
+    DashboardAccountSubscriptionRouteRouteChildren,
+  )
+
+interface DashboardAccountRouteRouteChildren {
+  DashboardAccountSubscriptionRouteRoute: typeof DashboardAccountSubscriptionRouteRouteWithChildren
+  DashboardAccountAppearanceRoute: typeof DashboardAccountAppearanceRoute
+  DashboardAccountBillingsRoute: typeof DashboardAccountBillingsRoute
+  DashboardAccountProfileRoute: typeof DashboardAccountProfileRoute
+  DashboardAccountSettingsRoute: typeof DashboardAccountSettingsRoute
+  DashboardAccountIndexRoute: typeof DashboardAccountIndexRoute
+}
+
+const DashboardAccountRouteRouteChildren: DashboardAccountRouteRouteChildren = {
+  DashboardAccountSubscriptionRouteRoute:
+    DashboardAccountSubscriptionRouteRouteWithChildren,
+  DashboardAccountAppearanceRoute: DashboardAccountAppearanceRoute,
+  DashboardAccountBillingsRoute: DashboardAccountBillingsRoute,
+  DashboardAccountProfileRoute: DashboardAccountProfileRoute,
+  DashboardAccountSettingsRoute: DashboardAccountSettingsRoute,
+  DashboardAccountIndexRoute: DashboardAccountIndexRoute,
+}
+
+const DashboardAccountRouteRouteWithChildren =
+  DashboardAccountRouteRoute._addFileChildren(
+    DashboardAccountRouteRouteChildren,
+  )
+
 interface DashboardRouteRouteChildren {
+  DashboardAccountRouteRoute: typeof DashboardAccountRouteRouteWithChildren
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardAccountRouteRoute: DashboardAccountRouteRouteWithChildren,
   DashboardIndexRoute: DashboardIndexRoute,
 }
 
@@ -324,6 +547,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/account': typeof DashboardAccountRouteRouteWithChildren
   '/change-password': typeof AuthChangePasswordRoute
   '/confirm-email': typeof AuthConfirmEmailRoute
   '/forgot-password': typeof AuthForgotPasswordRoute
@@ -333,13 +557,23 @@ export interface FileRoutesByFullPath {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/account/subscription': typeof DashboardAccountSubscriptionRouteRouteWithChildren
+  '/dashboard/account/appearance': typeof DashboardAccountAppearanceRoute
+  '/dashboard/account/billings': typeof DashboardAccountBillingsRoute
+  '/dashboard/account/profile': typeof DashboardAccountProfileRoute
+  '/dashboard/account/settings': typeof DashboardAccountSettingsRoute
   '/demo/entry/testing': typeof DemoEntryTestingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
+  '/dashboard/account/': typeof DashboardAccountIndexRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
+  '/dashboard/account/subscription/payment': typeof DashboardAccountSubscriptionPaymentRouteRouteWithChildren
+  '/dashboard/account/subscription/': typeof DashboardAccountSubscriptionIndexRoute
+  '/dashboard/account/subscription/payment/success': typeof DashboardAccountSubscriptionPaymentSuccessRoute
+  '/dashboard/account/subscription/payment/': typeof DashboardAccountSubscriptionPaymentIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -354,13 +588,21 @@ export interface FileRoutesByTo {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/account/appearance': typeof DashboardAccountAppearanceRoute
+  '/dashboard/account/billings': typeof DashboardAccountBillingsRoute
+  '/dashboard/account/profile': typeof DashboardAccountProfileRoute
+  '/dashboard/account/settings': typeof DashboardAccountSettingsRoute
   '/demo/entry/testing': typeof DemoEntryTestingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
+  '/dashboard/account': typeof DashboardAccountIndexRoute
   '/example/guitars': typeof ExampleGuitarsIndexRoute
+  '/dashboard/account/subscription': typeof DashboardAccountSubscriptionIndexRoute
+  '/dashboard/account/subscription/payment/success': typeof DashboardAccountSubscriptionPaymentSuccessRoute
+  '/dashboard/account/subscription/payment': typeof DashboardAccountSubscriptionPaymentIndexRoute
 }
 
 export interface FileRoutesById {
@@ -368,6 +610,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_auth': typeof AuthRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/account': typeof DashboardAccountRouteRouteWithChildren
   '/_auth/change-password': typeof AuthChangePasswordRoute
   '/_auth/confirm-email': typeof AuthConfirmEmailRoute
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
@@ -377,13 +620,23 @@ export interface FileRoutesById {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/example/chat': typeof ExampleChatRoute
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/account/subscription': typeof DashboardAccountSubscriptionRouteRouteWithChildren
+  '/dashboard/account/appearance': typeof DashboardAccountAppearanceRoute
+  '/dashboard/account/billings': typeof DashboardAccountBillingsRoute
+  '/dashboard/account/profile': typeof DashboardAccountProfileRoute
+  '/dashboard/account/settings': typeof DashboardAccountSettingsRoute
   '/demo/entry/testing': typeof DemoEntryTestingRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
   '/example/guitars/$guitarId': typeof ExampleGuitarsGuitarIdRoute
+  '/dashboard/account/': typeof DashboardAccountIndexRoute
   '/example/guitars/': typeof ExampleGuitarsIndexRoute
+  '/dashboard/account/subscription/payment': typeof DashboardAccountSubscriptionPaymentRouteRouteWithChildren
+  '/dashboard/account/subscription/': typeof DashboardAccountSubscriptionIndexRoute
+  '/dashboard/account/subscription/payment/success': typeof DashboardAccountSubscriptionPaymentSuccessRoute
+  '/dashboard/account/subscription/payment/': typeof DashboardAccountSubscriptionPaymentIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -392,6 +645,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/dashboard'
+    | '/dashboard/account'
     | '/change-password'
     | '/confirm-email'
     | '/forgot-password'
@@ -401,13 +655,23 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/example/chat'
     | '/dashboard/'
+    | '/dashboard/account/subscription'
+    | '/dashboard/account/appearance'
+    | '/dashboard/account/billings'
+    | '/dashboard/account/profile'
+    | '/dashboard/account/settings'
     | '/demo/entry/testing'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
+    | '/dashboard/account/'
     | '/example/guitars'
+    | '/dashboard/account/subscription/payment'
+    | '/dashboard/account/subscription/'
+    | '/dashboard/account/subscription/payment/success'
+    | '/dashboard/account/subscription/payment/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -421,18 +685,27 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/example/chat'
     | '/dashboard'
+    | '/dashboard/account/appearance'
+    | '/dashboard/account/billings'
+    | '/dashboard/account/profile'
+    | '/dashboard/account/settings'
     | '/demo/entry/testing'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
+    | '/dashboard/account'
     | '/example/guitars'
+    | '/dashboard/account/subscription'
+    | '/dashboard/account/subscription/payment/success'
+    | '/dashboard/account/subscription/payment'
   id:
     | '__root__'
     | '/'
     | '/_auth'
     | '/dashboard'
+    | '/dashboard/account'
     | '/_auth/change-password'
     | '/_auth/confirm-email'
     | '/_auth/forgot-password'
@@ -442,13 +715,23 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/example/chat'
     | '/dashboard/'
+    | '/dashboard/account/subscription'
+    | '/dashboard/account/appearance'
+    | '/dashboard/account/billings'
+    | '/dashboard/account/profile'
+    | '/dashboard/account/settings'
     | '/demo/entry/testing'
     | '/demo/form/address'
     | '/demo/form/simple'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
     | '/example/guitars/$guitarId'
+    | '/dashboard/account/'
     | '/example/guitars/'
+    | '/dashboard/account/subscription/payment'
+    | '/dashboard/account/subscription/'
+    | '/dashboard/account/subscription/payment/success'
+    | '/dashboard/account/subscription/payment/'
   fileRoutesById: FileRoutesById
 }
 
@@ -525,7 +808,20 @@ export const routeTree = rootRoute
     "/dashboard": {
       "filePath": "dashboard/route.tsx",
       "children": [
+        "/dashboard/account",
         "/dashboard/"
+      ]
+    },
+    "/dashboard/account": {
+      "filePath": "dashboard/account/route.tsx",
+      "parent": "/dashboard",
+      "children": [
+        "/dashboard/account/subscription",
+        "/dashboard/account/appearance",
+        "/dashboard/account/billings",
+        "/dashboard/account/profile",
+        "/dashboard/account/settings",
+        "/dashboard/account/"
       ]
     },
     "/_auth/change-password": {
@@ -561,6 +857,30 @@ export const routeTree = rootRoute
       "filePath": "dashboard/index.tsx",
       "parent": "/dashboard"
     },
+    "/dashboard/account/subscription": {
+      "filePath": "dashboard/account/subscription/route.tsx",
+      "parent": "/dashboard/account",
+      "children": [
+        "/dashboard/account/subscription/payment",
+        "/dashboard/account/subscription/"
+      ]
+    },
+    "/dashboard/account/appearance": {
+      "filePath": "dashboard/account/appearance.tsx",
+      "parent": "/dashboard/account"
+    },
+    "/dashboard/account/billings": {
+      "filePath": "dashboard/account/billings.tsx",
+      "parent": "/dashboard/account"
+    },
+    "/dashboard/account/profile": {
+      "filePath": "dashboard/account/profile.tsx",
+      "parent": "/dashboard/account"
+    },
+    "/dashboard/account/settings": {
+      "filePath": "dashboard/account/settings.tsx",
+      "parent": "/dashboard/account"
+    },
     "/demo/entry/testing": {
       "filePath": "demo/entry.testing.tsx"
     },
@@ -579,8 +899,32 @@ export const routeTree = rootRoute
     "/example/guitars/$guitarId": {
       "filePath": "example/guitars.$guitarId.tsx"
     },
+    "/dashboard/account/": {
+      "filePath": "dashboard/account/index.tsx",
+      "parent": "/dashboard/account"
+    },
     "/example/guitars/": {
       "filePath": "example/guitars.index.tsx"
+    },
+    "/dashboard/account/subscription/payment": {
+      "filePath": "dashboard/account/subscription/payment/route.tsx",
+      "parent": "/dashboard/account/subscription",
+      "children": [
+        "/dashboard/account/subscription/payment/success",
+        "/dashboard/account/subscription/payment/"
+      ]
+    },
+    "/dashboard/account/subscription/": {
+      "filePath": "dashboard/account/subscription/index.tsx",
+      "parent": "/dashboard/account/subscription"
+    },
+    "/dashboard/account/subscription/payment/success": {
+      "filePath": "dashboard/account/subscription/payment/success.tsx",
+      "parent": "/dashboard/account/subscription/payment"
+    },
+    "/dashboard/account/subscription/payment/": {
+      "filePath": "dashboard/account/subscription/payment/index.tsx",
+      "parent": "/dashboard/account/subscription/payment"
     }
   }
 }

@@ -1,5 +1,6 @@
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import { PersonIcon } from "@radix-ui/react-icons";
+import { useNavigate } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import {
   ChevronDown,
@@ -35,8 +36,26 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@repo/ui";
+import { signOut } from "@/lib/auth";
 
 export function DropdownProfile() {
+  const navigate = useNavigate();
+
+  const handleSignOut = () => {
+    signOut(
+      {
+        query: {
+          callbackURL: "/signin",
+        },
+      },
+      {
+        onSuccess: () => {
+          navigate({ to: "/signin", replace: true });
+        },
+      },
+    );
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -60,28 +79,28 @@ export function DropdownProfile() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link to="/dashboard">
+            <Link to="/dashboard/account/profile">
               <User />
               <span>{m["dashboard.profile.title"]()}</span>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to="/dashboard">
+            <Link to="/dashboard/account/billings">
               <ReceiptText />
               <span>{m["dashboard.billings.title"]()}</span>
               <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to="/dashboard">
+            <Link to="/dashboard/account/subscription">
               <CreditCard />
               <span>{m["dashboard.subscription.title"]()}</span>
               <DropdownMenuShortcut>⌘P</DropdownMenuShortcut>
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to="/dashboard">
+            <Link to="/dashboard/account/settings">
               <Settings />
               <span>{m["dashboard.settings.title"]()}</span>
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
@@ -96,7 +115,7 @@ export function DropdownProfile() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
-            <Link to="/dashboard">
+            <Link to="/dashboard/account/team">
               <Users />
               <span>{m["dashboard.team"]()}</span>
             </Link>
@@ -156,15 +175,13 @@ export function DropdownProfile() {
           <span>API</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <form method="POST" action="/auth/logout" className="w-full">
-          <DropdownMenuItem asChild className="w-full">
-            <button type="submit">
-              <LogOut />
-              <span>{m["common.logout"]()}</span>
-              {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
-            </button>
-          </DropdownMenuItem>
-        </form>
+        <DropdownMenuItem asChild className="w-full">
+          <button type="button" onClick={handleSignOut}>
+            <LogOut />
+            <span>{m["common.logout"]()}</span>
+            {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+          </button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

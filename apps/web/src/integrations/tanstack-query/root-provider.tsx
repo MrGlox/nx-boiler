@@ -6,13 +6,13 @@ import superjson from "superjson";
 import { TRPCProvider } from "@/integrations/trpc/react";
 
 import type { TRPCRouter } from "@/integrations/trpc/router";
-import { getSessionToken } from "@/lib/auth";
 
 function getUrl() {
   const base = (() => {
     if (typeof window !== "undefined") return "";
     return `http://localhost:${process.env.PORT ?? 3000}`;
   })();
+
   return `${base}/api/trpc`;
 }
 
@@ -41,16 +41,12 @@ export function getContext() {
   return {
     queryClient,
     trpc: serverHelpers,
-    user: {
-      sessionToken: getSessionToken(),
-    },
+    user: {},
   };
 }
 
 export function Provider({ children }: { children: React.ReactNode }) {
   return (
-    <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
-      {children}
-    </TRPCProvider>
+    <TRPCProvider {...{ trpcClient, queryClient }}>{children}</TRPCProvider>
   );
 }

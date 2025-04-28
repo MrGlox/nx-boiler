@@ -35,7 +35,10 @@
       "@repo/ui": ["../../libs/ui/src/components/index.gen.ts"],
       "@repo/utils": ["../../libs/utils/src"],
       "@repo/database": ["../../libs/database/src"],
-      "@repo/dictionaries/*": ["../../libs/shared/dictionaries/src/paraglide/*"]
+      "@repo/dictionaries/*": [
+        "../../libs/shared/dictionaries/src/paraglide/*"
+      ],
+      "@repo/dto": ["../../libs/shared/dto/src/index.ts"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"]

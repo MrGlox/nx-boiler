@@ -8,22 +8,13 @@ import { cn } from "@repo/utils";
 
 import { Google } from "@/assets/logos";
 import { Link } from "@/components/atoms/link";
-import { sessionToken, signIn, signUp, useSession } from "@/lib/auth";
+import { signIn, signUp, useSession, getSession } from "@/lib/auth";
 import { Divider } from "@/components/atoms/divider";
 
 const REDIRECT_URL = "/dashboard";
 
 export const Route = createFileRoute("/_auth/signup")({
   component: RouteComponent,
-  loader: async () => {
-    if (sessionToken()) {
-      return redirect({
-        to: "/dashboard",
-      });
-    }
-
-    return null;
-  },
 });
 
 const FormSchema = z.object({
